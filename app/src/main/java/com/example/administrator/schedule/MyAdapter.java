@@ -17,8 +17,13 @@ import java.util.Map;
  * Created by Administrator on 2016/11/19.
  */
 
-public class MyAdapter extends SimpleAdapter {
-    private boolean multiSelect = false;
+public class MyAdapter extends SimpleAdapter implements OnClickWithUIChangeListener {
+
+    private Context context;
+    private List data;
+    private int resource;
+    private String[] from;
+    private int[] to;
 
     /**
      * Constructor
@@ -36,21 +41,66 @@ public class MyAdapter extends SimpleAdapter {
      */
     public MyAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
+        this.context = context;
+        this.data = data;
+        this.resource = resource;
+        this.from = from;
+        this.to = to;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView, parent);
 
-        if(multiSelect){
+        View view = super.getView(position, convertView, parent);
+        if(ScheduleHandler.isMultiSelected){
             CheckBox checkBox = (CheckBox) view.findViewById(R.id.check);
             checkBox.setVisibility(View.VISIBLE);
+//            checkBox.setClickable(true);
         }
+//        view.setOnClickListener(new onclick());
+//        view.setOnLongClickListener(new onlongclick());
 
         return view;
     }
 
-    public void setShowCheckbox(boolean judge){
-        multiSelect = judge;
+    @Override
+    public void onClickWithUiChange(View view) {
+        CheckBox cb = (CheckBox) view.findViewById(R.id.check);
+        if(cb.isChecked()){
+            cb.setChecked(false);
+        }
+        else{
+            cb.setChecked(true);
+        }
     }
+
+    @Override
+    public void onLongClickWithChange(View view) {
+
+    }
+
+//    class onclick implements View.OnClickListener{
+//
+//        @Override
+//        public void onClick(View v) {
+//            if(ScheduleHandler.isMultiSelected){
+//                CheckBox cb = (CheckBox) v.findViewById(R.id.check);
+//                cb.setChecked(true);
+//            }
+//            else {
+//
+//            }
+//        }
+//    }
+//
+//    class onlongclick implements View.OnLongClickListener{
+//
+//        @Override
+//        public boolean onLongClick(View v) {
+//            return true;
+//        }
+//    }
+
+
 }

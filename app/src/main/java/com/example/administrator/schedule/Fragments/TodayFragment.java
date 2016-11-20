@@ -1,19 +1,32 @@
 package com.example.administrator.schedule.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
+import com.example.administrator.schedule.Activities.DetailActivity;
 import com.example.administrator.schedule.KEY;
 import com.example.administrator.schedule.MyAdapter;
 import com.example.administrator.schedule.*;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +36,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
  * Use the {@link TodayFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TodayFragment extends ListFragment {
+public class TodayFragment extends ListFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,6 +77,22 @@ public class TodayFragment extends ListFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        if(ScheduleHandler.isMultiSelected){
+//            ScheduleHandler.Index index = new ScheduleHandler.Index(position);
+            schedulerhandler.addSelectedSchedule(position);
+            adapter.onClickWithUiChange(v);
+        }
+        else {
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra(KEY.SCHEDULE_POSITION, position);
+            startActivityForResult(intent, 0);
+        }
     }
 
     @Override
@@ -97,29 +126,82 @@ public class TodayFragment extends ListFragment {
         mListener = null;
     }
 
-    private MyAdapter adapter;
-    private ScheduleHandler scheduleHandler;
-
+    private ScheduleHandler schedulerhandler;
+    private MyArrayAdapter adapter;
+    private Button add_button;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        scheduleHandler = ScheduleHandler.getInstance();
-        adapter = new MyAdapter(getActivity(),scheduleHandler.loadScheduleOnDay(),R.layout.list_item,
-                new String[]{KEY.SCHEDULE_NAME,KEY.SCHEDULE_TIME_DESCRIPTION},new int[]{R.id.schedule_name,R.id.schedule_time});
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Format.formatDay(CalendarDay.today()));
+
+        schedulerhandler = ScheduleHandler.getInstance();
+        adapter = new MyArrayAdapter(getActivity(),R.layout.list_item,schedulerhandler.getList());
+        setListAdapter(adapter);
+
+        add_button = (Button) getView().findViewById(R.id.add_but_today);
+        add_button.setOnClickListener(this);
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemLongClick: hahahahahahhaahhahahahahahaah");
+                ScheduleHandler.isMultiSelected = true;
+                adapter = new MyArrayAdapter(adapter);
+                setListAdapter(adapter);
+//                schedulerhandler.selectedList.add(new ScheduleHandler.Index(position));
+//                adapter.onClickWithUiChange(view);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.add_but_today:
+                startActivityForResult(new Intent(getActivity(), DetailActivity.class), 1);
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void changeAdapter(boolean mode){
+        ScheduleHandler.isMultiSelected = mode;
+        adapter = new MyArrayAdapter(adapter);
         setListAdapter(adapter);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.withdelete_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete:
+                // TODO: 2016/11/20
+                schedulerhandler.deleteSchedules();
+                if(ScheduleHandler.isMultiSelected ==true)
+                    changeAdapter(false);
+                break;
+            case R.id.cancle:
+                // TODO: 2016/11/20
+                if(ScheduleHandler.isMultiSelected == true)
+                    changeAdapter(false);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

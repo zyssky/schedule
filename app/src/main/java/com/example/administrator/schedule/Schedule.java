@@ -17,8 +17,10 @@ public class Schedule implements Parcelable {
     public int month;
     public int day;
 
-    public int hour;
-    public int minute;
+    public int hour = -1;
+    public int minute = -1;
+
+    public int type = 1;
 
     public String title;
     public String content;
@@ -47,29 +49,39 @@ public class Schedule implements Parcelable {
         dest.writeInt(day);
         dest.writeInt(hour);
         dest.writeInt(minute);
+        dest.writeInt(type);
         dest.writeString(title);
         dest.writeString(content);
+
     }
 
-    public Schedule(int year,int month,int day,int hour,int minute,String title,String content){
+    public Schedule(int year,int month,int day,int type,int hour,int minute,String title,String content){
         this.year = year;
         this.month = month;
         this.day = day;
         this.title = title;
         this.content  = content;
+        this.type = type;
     }
 
-    public Schedule(CalendarDay calendarDay,int hour,int minute,String title,String content){
+    public Schedule(CalendarDay calendarDay,int hour,int minute,int type,String title,String content){
 //        this.calendarDay = calendarDay;
         this.year = calendarDay.getYear();
         this.month = calendarDay.getMonth();
         this.day = calendarDay.getDay();
         this.title = title;
         this.content  = content;
+        this.type = type;
+    }
+
+    public Schedule(int year,int month,int day){
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
     public Schedule(Parcel parcel){
         this(parcel.readInt(),parcel.readInt(),parcel.readInt(),parcel.readInt(),parcel.readInt(),
-                parcel.readString(),parcel.readString());
+                parcel.readInt(),parcel.readString(),parcel.readString());
     }
 }

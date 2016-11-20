@@ -2,8 +2,10 @@ package com.example.administrator.schedule.Activities;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ public class DetailActivity extends AppCompatActivity {
 //    private String content;
     private Schedule schedule;
     private int position;
+    private Button selectType;
 
     private Context context;
 
@@ -52,7 +55,8 @@ public class DetailActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         schedule.hour = hourOfDay;
                         schedule.minute = minute;
-                        pick_time_btn.setText(Format.formatRemindTitle(hourOfDay,minute));
+                        String s= pick_time_btn.getText().toString();
+                        pick_time_btn.setText(Format.getTime(schedule));
                     }
                 }, new Date().getHours(),new Date().getMinutes(),true).show();
             }
@@ -62,23 +66,28 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         position = -1;
 
+        selectType = (Button) findViewById(R.id.pick_type);
+        selectType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTypeDialog();
+            }
+        });
+
         if(bundle!=null) {
-//            hour = bundle.getInt(KEY.SCHEDULE_START_HOUR);
-//            minute = bundle.getInt(KEY.SCHEDULE_START_MINUTE);
-//            activity_content_edittext.setText(bundle.getString(KEY.SCHEDULE_NAME));
-//            pick_time_btn.setText(Format.formatRemindTitle(hour, minute));
             position = bundle.getInt(KEY.SCHEDULE_POSITION);
             schedule = ScheduleHandler.getInstance().getSchedule(position);
-
+            updateTypeIcon(schedule.type);
             displaySchedule(position);
         }
         else{
             int year = ScheduleHandler.getInstance().year;
             int month = ScheduleHandler.getInstance().month;
             int day = ScheduleHandler.getInstance().day;
-            schedule = new Schedule(year,month,day,0,0,"","");
+            schedule = new Schedule(year,month,day);
         }
 
+        pick_time_btn.setText(Format.getTime(schedule));
     }
 
     @Override
@@ -111,12 +120,33 @@ public class DetailActivity extends AppCompatActivity {
         // TODO: 2016/11/7 set the coresponding text to the widget
         schedule_title.setText(schedule.title);
         schedule_content.setText(schedule.content);
-        pick_time_btn.setText(Format.formatDateTitle(schedule.hour,schedule.minute));
+        String s= pick_time_btn.getText().toString();
+        pick_time_btn.setText(s+","+Format.formatDateTitle(schedule.hour,schedule.minute));
     }
 
-//    private Schedule generateSchedule(){
-//
-//        return schedule;
-//    }
+    void selectTypeDialog(){
+        new AlertDialog.Builder(this).setTitle("选择日程类型").setIcon(R.drawable.ic_track_changes_black_24dp).setItems(R.array.choice, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                schedule.type = which;
+                updateTypeIcon(which);
+            }
+        }).show();
+    }
+
+    void updateTypeIcon(int type){
+
+        switch (type){
+            case 0:
+                selectType.setBackground(getDrawable(R.drawable.ic_star_black_24dp));
+                break;
+            case 1:
+                selectType.setBackground(getDrawable(R.drawable.ic_star_half_black_24dp));
+                break;
+            case 2:
+                selectType.setBackground(getDrawable(R.drawable.ic_star_border_black_24dp));
+                break;
+        }
+    }
 
 }

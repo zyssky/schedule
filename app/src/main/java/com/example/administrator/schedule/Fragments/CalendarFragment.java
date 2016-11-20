@@ -1,6 +1,7 @@
 package com.example.administrator.schedule.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,9 +9,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -75,6 +80,7 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
 
 
     }
@@ -88,40 +94,82 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
         calendarView.setSelectedDate(CalendarDay.today());
         calendarView.setOnMonthChangedListener(this);
         calendarView.setDynamicHeightEnabled(true);
-        Log.d(TAG, "onResume: "+getActivity().getLocalClassName());
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Format.formatDateTitle(CalendarDay.today()));
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayOptions();
 
         add_button = (Button) getView().findViewById(R.id.add_but);
         add_button.setOnClickListener(this);
         today=(Button) getView().findViewById(R.id.today);
         today.setOnClickListener(this);
-        schedulerhandler = ScheduleHandler.getInstance(calendarView.getSelectedDate());
-        adapter = new MyAdapter(getActivity(),schedulerhandler.loadScheduleOnDay(),R.layout.list_item,
-                new String[]{KEY.SCHEDULE_NAME,KEY.SCHEDULE_TIME_DESCRIPTION},new int[]{R.id.schedule_name,R.id.schedule_time});
-//        listView = (ListView) getView().findViewById(R.id.list);
-//        listView.setAdapter(adapter);
+        schedulerhandler = ScheduleHandler.getInstance();
+        adapter = new MyArrayAdapter(getActivity(),R.layout.list_item,schedulerhandler.getList());
         setListAdapter(adapter);
         
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemLongClick: hahahahahahhaahhahahahahahaah");
-                adapter.setShowCheckbox(true);
-                
+                ScheduleHandler.isMultiSelected = true;
+                adapter = new MyArrayAdapter(adapter);
+                setListAdapter(adapter);
+//                schedulerhandler.selectedList.add(new ScheduleHandler.Index(position));
+//                adapter.onClickWithUiChange(view);
                 return true;
             }
         });
+
+
     }
+
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent intent = new Intent(getActivity(),DetailActivity.class);
-        intent.putExtra(KEY.SCHEDULE_POSITION,position);
-        startActivityForResult(intent,0);
+        if(ScheduleHandler.isMultiSelected){
+//            ScheduleHandler.Index index = new ScheduleHandler.Index(position);
+            schedulerhandler.addSelectedSchedule(position);
+            adapter.onClickWithUiChange(v);
+        }
+        else {
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra(KEY.SCHEDULE_POSITION, position);
+            startActivityForResult(intent, 0);
+        }
     }
 
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.withdelete_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete:
+                // TODO: 2016/11/20
+                schedulerhandler.deleteSchedules();
+                if(ScheduleHandler.isMultiSelected ==true)
+                    changeAdapter(false);
+                break;
+            case R.id.cancle:
+                // TODO: 2016/11/20
+                if(ScheduleHandler.isMultiSelected == true)
+                    changeAdapter(false);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void changeAdapter(boolean mode){
+        ScheduleHandler.isMultiSelected = mode;
+        adapter = new MyArrayAdapter(adapter);
+        setListAdapter(adapter);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,55 +180,13 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
     }
 
     private MaterialCalendarView calendarView;
-    private ListView listView;
+
     private Button add_button;
     private Button today;
 
     private ScheduleHandler schedulerhandler;
-    private MyAdapter adapter;
+    private MyArrayAdapter adapter;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-//        calendarView=(MaterialCalendarView) getView().findViewById(R.id.calendar);
-//        calendarView.setOnDateChangedListener(this);
-//        calendarView.setTopbarVisible(false);
-//        calendarView.setSelectedDate(CalendarDay.today());
-//        calendarView.setOnMonthChangedListener(this);
-//        calendarView.setDynamicHeightEnabled(true);
-//        Log.d(TAG, "onResume: "+getActivity().getLocalClassName());
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Format.formatDateTitle(CalendarDay.today()));
-//
-//        add_button = (Button) getView().findViewById(R.id.add_but);
-//        add_button.setOnClickListener(this);
-//        today=(Button) getView().findViewById(R.id.today);
-//        today.setOnClickListener(this);
-
-//        schedulerhandler = ScheduleHandler.getInstance(calendarView.getSelectedDate());
-//        adapter = new SimpleAdapter(getActivity(),schedulerhandler.loadScheduleOnDay(),R.layout.list_item,
-//                new String[]{KEY.SCHEDULE_NAME,KEY.SCHEDULE_TIME_DESCRIPTION},new int[]{R.id.schedule_name,R.id.schedule_time});
-////        listView = (ListView) getView().findViewById(R.id.list);
-////        listView.setAdapter(adapter);
-//        setListAdapter(adapter);
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                ScheduleHandler.choose_item_position = position;
-////                showDeleteItemDialog();
-//                return true;
-//            }
-//        });
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(getActivity(),DetailActivity.class);
-//                intent.putExtra(KEY.SCHEDULE_POSITION,position);
-//                startActivityForResult(intent,0);
-//            }
-//        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -199,12 +205,12 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -223,28 +229,18 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
                 CalendarDay currentmonth = CalendarDay.today();
                 calendarView.setCurrentDate(currentmonth);
                 calendarView.setSelectedDate(currentmonth);
+                ScheduleHandler.getInstance(currentmonth);
+                adapter.notifyDataSetChanged();
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
-        schedulerhandler.loadScheduleOnDay(date);
+        ScheduleHandler.getInstance(date);
         adapter.notifyDataSetChanged();
+        List<Schedule> l = adapter.getObjects();
+        Log.d(TAG, "onDateSelected: "+l.size());
     }
 
     @Override
@@ -258,6 +254,8 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
         adapter.notifyDataSetChanged();
 
     }
+
+
 
     public void update(){
 
