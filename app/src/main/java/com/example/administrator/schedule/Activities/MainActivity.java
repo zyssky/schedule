@@ -23,6 +23,7 @@ import com.example.administrator.schedule.Fragments.ClockArrangementFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
+import com.example.administrator.schedule.Models.dbOpt;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //Init DB.
+        dbOpt dbopt = new dbOpt(this);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
