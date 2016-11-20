@@ -116,7 +116,7 @@ public class dbOpt {
 
 
     //Update Mods:
-    public void update(String table_name, String column_name, String condition_column,String oldvalue, String newvalue){
+    public void update_table(String table_name, String column_name, String condition_column,String oldvalue, String newvalue){
 
         try{
 
