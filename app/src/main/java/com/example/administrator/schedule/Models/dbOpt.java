@@ -17,13 +17,13 @@ import java.util.List;
 
 public class dbOpt {
 
+    //Init Database At the beginning of the program.
     public SQLite dbOperator;
-    private Context mContext;
+    public static Context mContext;
     private SQLiteDatabase db = null;
-    public dbOpt(Context context){
+    public dbOpt(){
 
-        dbOperator = new SQLite(context, Settings.db_name,null ,1);
-        mContext   = context;
+        dbOperator = new SQLite(mContext, Settings.db_name,null ,1);
         //Really Create Database:
         db = dbOperator.getReadableDatabase();
     }

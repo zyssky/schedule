@@ -1,25 +1,101 @@
 package com.example.administrator.schedule.Models;
 
-/**
- * Created by wand on 2016/11/21.
- */
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Schedule {
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-    public int sche_id;
-    public int user_id;
-    public String title;
-    public String content;
-    public int year;
-    public int month;
-    public int day;
-    public int hour;
-    public int minute;
-    public int type;
+
+    /**
+     * Created by Administrator on 2016/11/7.
+     */
+
+    public class Schedule implements Parcelable {
+
+//    private transient CalendarDay calendarDay;
+
+        public int sche_id;
+        public int user_id;
+        public int year;
+        public int month;
+        public int day;
+        public int hour = -1;
+        public int minute = -1;
+        public int type = 1;
+
+        public String title;
+        public String content;
+
+        public static final Creator<Schedule> CREATOR = new Creator<Schedule>() {
+            @Override
+            public Schedule createFromParcel(Parcel source) {
+                return new Schedule(source);
+            }
+
+            @Override
+            public Schedule[] newArray(int size) {
+                return new Schedule[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(year);
+            dest.writeInt(month);
+            dest.writeInt(day);
+            dest.writeInt(hour);
+            dest.writeInt(minute);
+            dest.writeInt(type);
+            dest.writeString(title);
+            dest.writeString(content);
+            dest.writeInt(user_id);
+        }
+
+
+        public Schedule(CalendarDay calendarDay, int hour, int minute, int type, String title, String content){
+//        this.calendarDay = calendarDay;
+            this.year = calendarDay.getYear();
+            this.month = calendarDay.getMonth();
+            this.day = calendarDay.getDay();
+            this.title = title;
+            this.content  = content;
+            this.type = type;
+        }
+
+        public Schedule(int year,int month,int day){
+            this.year = year;
+            this.month = month;
+            this.day = day;
+        }
+
+        public Schedule(Parcel parcel){
+            this(parcel.readInt(),parcel.readInt(),parcel.readInt(),parcel.readInt(),parcel.readInt(),
+                    parcel.readInt(),parcel.readString(),parcel.readString(),parcel.readInt());
+        }
 
     public Schedule(){
 
     }
+
+    public Schedule(int year, int month, int day , int hour, int minute, int type, String title , String content, int user_id){
+
+        this.year = year;
+        this.month= month;
+        this.day  = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.type   = type;
+        this.title  = title;
+        this.content= content;
+        this.user_id= user_id;
+
+    }
+
 
     public Schedule(int sche_id, int user_id, String title, String content, int year, int month,
                     int day, int hour, int minute, int type){
@@ -48,5 +124,5 @@ public class Schedule {
             this.hour    = hour;
             this.minute  = minute;
             this.type    = type;
+        }
     }
-}

@@ -2,6 +2,8 @@ package com.example.administrator.schedule;
 
 import android.widget.ArrayAdapter;
 
+import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.Models.dbOpt;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.lang.reflect.Array;
@@ -52,6 +54,9 @@ public class ScheduleHandler {
         scheduleList = new ArrayList<Schedule>();
         selectedList = new ArrayList<Schedule>();
         // TODO: 2016/11/20 load from the database
+        dbOpt dbopt  = new dbOpt();
+        
+
 
     }
 

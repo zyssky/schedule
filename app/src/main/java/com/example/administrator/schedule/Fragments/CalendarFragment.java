@@ -26,6 +26,7 @@ import android.widget.SimpleAdapter;
 import com.example.administrator.schedule.Activities.*;
 import com.example.administrator.schedule.*;
 
+import com.example.administrator.schedule.Models.Schedule;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;

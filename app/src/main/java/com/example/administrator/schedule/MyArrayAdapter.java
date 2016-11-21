@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.administrator.schedule.Models.Schedule;
+
 import java.util.List;
 import java.util.zip.Inflater;
 

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.example.administrator.schedule.*;
+import com.example.administrator.schedule.Models.Schedule;
 
 import java.util.Date;
 

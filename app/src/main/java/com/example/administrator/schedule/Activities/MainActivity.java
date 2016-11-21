@@ -1,11 +1,13 @@
 package com.example.administrator.schedule.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,7 +25,11 @@ import com.example.administrator.schedule.Fragments.ClockArrangementFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
+import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
@@ -34,12 +40,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Init DB.
-        dbOpt dbopt = new dbOpt(this);
+        dbOpt.mContext = this;
+        dbOpt dbopt = new dbOpt();
+        dbOptThread dbInitializer = new dbOptThread(dbopt);
+        dbInitializer.start();
+
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -161,4 +172,37 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Bundle bundle) {
 
     }
+
+}
+
+class dbOptThread extends Thread{
+
+    dbOpt dbopt = null;
+    Context context = null;
+
+    public dbOptThread(dbOpt dbopt){
+
+        this.dbopt = dbopt;
+    }
+    @Override
+    public void run(){
+
+        User user   = new User("0xcc","since2016",0,"2016-11-21 08:21:57");
+        User user2   = new User("tester","since2016",0,"2016-11-21 12:21:57");
+        User user3   = new User("tester","since2016",0,"2016-11-21 15:20:57");
+        User user4   = new User("tester","since2016",0,"2016-11-21 15:20:57");
+        dbopt.add_user(user);
+        dbopt.add_user(user2);
+        dbopt.add_user(user3);
+        dbopt.add_user(user4);
+        //Delete
+        dbopt.delete_func("user","username","0xcc");
+        dbopt.update_table("user","username","username","tester","0xcc");
+        List<Object> users = dbopt.query_info("user","","anything");
+        for(Object tempuser: users){
+            User temp = (User)tempuser;
+            Log.d("[*]Have-User:" , temp.username);
+        }
+    }
+
 }
