@@ -30,7 +30,7 @@ public class DBRepository {
 
     public dbOpt getdbOpt() {
         if (mdbOpt == null) {
-            mdbOpt = new dbOpt(mContext);
+            mdbOpt = new dbOpt();
         }
         return mdbOpt;
     }
