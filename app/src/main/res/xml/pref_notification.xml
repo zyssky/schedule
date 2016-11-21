@@ -1,0 +1,66 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+
+
+
+    <PreferenceCategory
+        android:title="铃声">
+
+        <RingtonePreference
+            android:defaultValue="content://settings/system/notification_sound"
+            android:key="ring"
+            android:ringtoneType="notification"
+            android:title="铃声" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="重要事项">
+        <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="important_vibrate"
+            android:title="振动" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="important_noise"
+            android:title="声音" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="普通事项">
+        <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="normal_vibrate"
+            android:title="振动" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="normal_noise"
+            android:title="声音" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="小意思事项">
+        <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="simple_vibrate"
+            android:title="振动" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="simple_noise"
+            android:title="声音" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

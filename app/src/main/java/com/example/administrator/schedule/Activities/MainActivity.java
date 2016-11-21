@@ -22,6 +22,7 @@ import android.widget.Button;
 import com.example.administrator.schedule.Fragments.AboutFragment;
 import com.example.administrator.schedule.Fragments.CalendarFragment;
 import com.example.administrator.schedule.Fragments.ClockArrangementFragment;
+import com.example.administrator.schedule.Fragments.SettingFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.tour) {
 
         }else if (id == R.id.setting) {
-
+            startActivity(new Intent(this,SettingsActivity.class));
         }else if (id == R.id.about) {
             fragment = new AboutFragment();
         }
