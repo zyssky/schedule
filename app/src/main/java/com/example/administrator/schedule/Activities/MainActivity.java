@@ -1,7 +1,12 @@
 package com.example.administrator.schedule.Activities;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.administrator.schedule.Fragments.AboutFragment;
 import com.example.administrator.schedule.Fragments.CalendarFragment;
@@ -23,6 +29,7 @@ import com.example.administrator.schedule.Fragments.ClockArrangementFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
+import com.example.administrator.schedule.Notification.LongRunningService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
@@ -38,14 +45,8 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
+        startAlarmService();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -146,14 +147,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(resultCode==RESULT_OK){
-//            if(fragment instanceof CalendarFragment)
-//                ((CalendarFragment)fragment).OnActivityInteraction(data.getExtras());
-//        }
-//    }
+
+    public void startAlarmService(){
+        Intent intent = new Intent(this, LongRunningService.class);
+        //开启关闭Service
+        startService(intent);
+
+    }
 
     @Override
     public void onFragmentInteraction(Bundle bundle) {

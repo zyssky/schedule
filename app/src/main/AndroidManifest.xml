@@ -28,6 +28,9 @@
             android:label="@string/title_activity_login"></activity>
         <activity android:name=".Activities.DetailActivity"
             android:label="detail"/>
+        <service android:name=".Notification.LongRunningService"></service>
+        <receiver android:name=".Notification.AlarmReceiver">
+        </receiver>
     </application>
 
 </manifest>
