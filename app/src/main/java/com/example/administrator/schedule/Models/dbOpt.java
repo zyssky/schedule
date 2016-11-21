@@ -129,7 +129,17 @@ public class dbOpt {
         }
     }
 
+    public void userdef_update(String update_SQL, String[] values){
 
+        try{
+            db.execSQL(update_SQL,values);
+
+        }catch(Exception e){
+            Log.d(Settings.Error_logTag, e.toString());
+            Toast.makeText(mContext,"Updating Table " + " Failed.", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     //Basic - Query Mods:
     public List<Object> query_info(String table_name, String query_column, String value){

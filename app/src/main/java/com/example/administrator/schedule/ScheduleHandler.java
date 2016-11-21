@@ -119,7 +119,13 @@ public class ScheduleHandler {
         // TODO: 2016/11/3 update the item detail to storage
         Schedule old_temp = (Schedule) scheduleList.get(position);
         scheduleList.set(position,schedule);
-        ScheduleHandler.dbopt.update_table("schedule","title","title",old_temp.title,schedule.title);
+        scheduleHandler.dbopt.userdef_update("UPDATE schedule SET user_id=? , title=? , " +
+                                             "content=? , year=? , month = ? , " +
+                                             "day = ? , hour = ? , " +
+                                             "minute = ? , type = ? WHERE title = ? ",
+                new String[]{schedule.user_id+"",schedule.title,
+                        schedule.content,schedule.year+"",schedule.month+"", schedule.day+"",
+                        schedule.hour+"",schedule.minute+"",schedule.type+"",old_temp.title});
         sort();
     }
 
