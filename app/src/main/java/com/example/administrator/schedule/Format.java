@@ -1,5 +1,6 @@
 package com.example.administrator.schedule;
 
+import com.example.administrator.schedule.Models.Schedule;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 /**
@@ -27,13 +28,51 @@ public class Format {
         return sb.toString();
     }
 
-    public static String formatRemindTitle(int hour,int minute){
+    public static String formatDay(CalendarDay date){
+        int day=date.getDay();
+        int month = date.getMonth();
         StringBuilder sb = new StringBuilder();
-        sb.append("活动提醒时间： ");
-        sb.append(hour);
-        sb.append(":");
-        sb.append(minute);
+        sb.append(month+1);
+        sb.append("月");
+        sb.append(day);
+        sb.append("日");
         return sb.toString();
+    }
 
+    public static String getTime(Schedule schedule){
+        StringBuilder sb = new StringBuilder();
+        sb.append(schedule.month);
+        sb.append("月");
+        sb.append(schedule.day);
+        sb.append("日");
+        if(schedule.hour>=0){
+            sb.append(",");
+            sb.append(schedule.hour);
+            sb.append(":");
+            sb.append(schedule.minute);
+        }
+        return sb.toString();
+    }
+
+    public static String formatDay(int month,int day){
+        StringBuilder sb = new StringBuilder();
+        sb.append(month+1);
+        sb.append("月");
+        sb.append(day);
+        sb.append("日");
+        return sb.toString();
+    }
+
+    public static String formatRemindTitle(Schedule schedule){
+        StringBuilder sb = new StringBuilder();
+        if(schedule.hour>=0) {
+
+//        sb.append("活动提醒时间： ");
+            sb.append(schedule.hour);
+            sb.append(":");
+            sb.append(schedule.minute);
+
+        }
+        return sb.toString();
     }
 }

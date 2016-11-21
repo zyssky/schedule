@@ -1,28 +1,39 @@
 package com.example.administrator.schedule;
 
+import android.util.Log;
+import android.widget.ArrayAdapter;
+
+import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.Models.dbOpt;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Administrator on 2016/11/3.
  */
 
 public class ScheduleHandler {
-    private List<Map<String,Object>> listitem;
+    public List selectedList;
     public int year;
     public int month;
     public int day;
     private List scheduleList;
-    private static ScheduleHandler scheduleHandler;
-
-    public static int choose_item_position;
+    private static ScheduleHandler scheduleHandler = null;
+    public static boolean isMultiSelected = false;
+    public static dbOpt dbopt = new dbOpt();
 
     public static ScheduleHandler getInstance(){
-        return scheduleHandler;
+        if(scheduleHandler != null)
+            return scheduleHandler;
+        else
+            return getInstance(CalendarDay.today());
     }
 
     public static ScheduleHandler getInstance(CalendarDay selectedDay){
@@ -36,101 +47,81 @@ public class ScheduleHandler {
     }
 
     private ScheduleHandler(CalendarDay selectedDay){
-        year = selectedDay.getYear();
-        month = selectedDay.getMonth();
-        day = selectedDay.getDay();
-        listitem=new ArrayList<Map<String, Object>>();
-        scheduleList = new ArrayList<Schedule>();
+        this(selectedDay.getYear(),selectedDay.getMonth(),selectedDay.getDay());
     }
 
     private ScheduleHandler(int year,int month,int day){
-//        loadScheduleOnDay(year,month,day);
         this.year = year;
         this.month = month;
         this.day = day;
-        listitem=new ArrayList<Map<String, Object>>();
+
         scheduleList = new ArrayList<Schedule>();
+        selectedList = new ArrayList<Schedule>();
+        scheduleList.clear();
+        selectedList.clear();
+        // TODO: 2016/11/20 load from the database
+        scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
+                new String[]{year+"",month+"",day+""});
+        Log.d(TAG, "ScheduleHandler: check with the schedulelist");
     }
 
-    public List<Map<String,Object>> loadScheduleOnDay(int year,int month,int day){
-        // TODO: 2016/11/3 load the data from storage
-        return listitem;
+    public List<Schedule> getList(){
+        return scheduleList;
     }
 
-    public List<Map<String,Object>> loadScheduleOnDay(){
-        // TODO: 2016/11/3 load the data from storage 
-        return listitem;
-    }
-
-    public List<Map<String,Object>> loadScheduleOnDay(CalendarDay selectedDay){
-        int d = selectedDay.getDay();
-        int m = selectedDay.getMonth();
-        int y = selectedDay.getYear();
-        if(d ==day && m == month && y == year)
-            return listitem;
-        else{
-            year = y;
-            month = m;
-            day = d;
-            listitem.clear();
-            scheduleList.clear();
-            // TODO: 2016/11/3  load the data from storage 
-            return listitem;
-        }
-    }
-
-//    public Map<String,Object> getMapFromSchedule(int position){
-//        return listitem.get(position);
-//    }
 
     public Schedule getSchedule(int position){
         return (Schedule) scheduleList.get(position);
     }
 
-    public void addMapSchedule(String name,int hour,int minute){
-        listitem.add(generate_item(name,hour,minute));
-        // TODO: 2016/11/3 write the schedule item to storage 
+    public void addSelectedSchedule(int position){
+        if(position<scheduleList.size()) {
+            Schedule schedule = (Schedule) scheduleList.get(position);
+            if (!selectedList.contains(schedule))
+                selectedList.add(schedule);
+            else
+                selectedList.remove(schedule);
+        }
     }
+
+    public void cleanSelected(){
+        selectedList.clear();
+    }
+
 
     public void addSchedule(Schedule schedule){
+        // TODO: 2016/11/20 add schedule into the databases
         scheduleList.add(schedule);
-        addMapSchedule(schedule.title,schedule.hour,schedule.minute);
+        ScheduleHandler.dbopt.add_schedule(schedule);
     }
 
-    public Map<String,Object> popSchedule(int position){
+
+    public void deleteSchedule(Schedule schedule){
         // TODO: 2016/11/3 delete the item from storage
-        scheduleList.remove(position);
-        return listitem.remove(position);
+        scheduleList.remove(schedule);
+        ScheduleHandler.dbopt.delete_func("schedule","title",schedule.title);
     }
 
-    public void deleteSchedule(int position){
-        // TODO: 2016/11/3 delete the item from storage
-        scheduleList.remove(position);
-        listitem.remove(position);
+    public void deleteSchedules(){
+        for (Object index : selectedList) {
+            deleteSchedule((Schedule) index);
+        }
     }
 
-    public void deleteSchedule(){
-        // TODO: 2016/11/3 delete the item from storage
-        scheduleList.remove(ScheduleHandler.choose_item_position);
-        listitem.remove(ScheduleHandler.choose_item_position);
-    }
 
     // where is the old one ???
     public void updateSchedule(int position,Schedule schedule){
+
+        // TODO: 2016/11/3 update the item detail to storage
+        Schedule old_temp = (Schedule) scheduleList.get(position);
         scheduleList.set(position,schedule);
-        String name = schedule.title;
-        int hour = schedule.hour;
-        int minute = schedule.minute;
-        listitem.set(position,generate_item(name,hour,minute));
-        // TODO: 2016/11/3 update the item detail to storage 
+        ScheduleHandler.dbopt.update_table("schedule","title","title",old_temp.title,schedule.title);
     }
 
-    private Map<String,Object> generate_item(String name,int hour,int minute){
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put(KEY.SCHEDULE_NAME,name);
-        map.put(KEY.SCHEDULE_START_HOUR,hour);
-        map.put(KEY.SCHEDULE_START_MINUTE,minute);
-        map.put(KEY.SCHEDULE_TIME_DESCRIPTION,Format.formatRemindTitle(hour,minute));
-        return map;
+    public static class Index{
+        private int index;
+        public Index(int index){
+            this.index = index;
+        }
     }
 }

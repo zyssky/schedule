@@ -5,9 +5,23 @@
     tools:context="com.example.administrator.schedule.Fragments.TodayFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ListView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@android:id/list"></ListView>
+        android:layout_height="match_parent">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@android:id/list"></ListView>
+
+        <Button
+            android:id="@+id/add_but_today"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/add_icon"/>
+    </RelativeLayout>
 
 </FrameLayout>

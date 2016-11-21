@@ -1,11 +1,13 @@
 package com.example.administrator.schedule.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,9 +22,16 @@ import android.widget.Button;
 import com.example.administrator.schedule.Fragments.AboutFragment;
 import com.example.administrator.schedule.Fragments.CalendarFragment;
 import com.example.administrator.schedule.Fragments.ClockArrangementFragment;
+import com.example.administrator.schedule.Fragments.SettingFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
+import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.Models.User;
+import com.example.administrator.schedule.Models.dbOpt;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
@@ -33,10 +42,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //Init DB.
+        dbOpt.mContext = this;
+        dbOpt dbopt = new dbOpt();
+        dbOptThread dbInitializer = new dbOptThread(dbopt);
+        dbInitializer.start();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.tour) {
 
         }else if (id == R.id.setting) {
-
+            startActivity(new Intent(this,SettingsActivity.class));
         }else if (id == R.id.about) {
             fragment = new AboutFragment();
         }
@@ -158,5 +173,53 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Bundle bundle) {
 
+    }
+
+}
+
+
+class dbOptThread extends Thread{
+
+    dbOpt dbopt = null;
+    Context context = null;
+
+    public dbOptThread(dbOpt dbopt){
+
+        this.dbopt = dbopt;
+    }
+    @Override
+    public void run(){
+
+        Schedule s1 = new Schedule(1,"Test","Content",2016,12,13,13,57,1);
+        Schedule s2 = new Schedule(1,"Tester","Contentt",2016,12,13,13,57,1);
+        Schedule s3 = new Schedule(1,"Testerr","Contenttt",2016,12,13,13,57,1);
+//      Fake-Register:
+        User user    = new User("0xcc","since2016",0,"2016-11-21 08:21:57");
+        User user2   = new User("zyssky","123456",0,"2016-11-21 12:22:46");
+        User user3   = new User("y2k2016","123456",0,"2016-11-21 15:20:17");
+//        User user4   = new User("tester","since2016",0,"2016-11-21 15:20:57");
+        dbopt.add_user(user);
+        dbopt.add_user(user2);
+        dbopt.add_user(user3);
+//        dbopt.close_db();
+//        dbopt.add_user(user4);
+//        dbopt.delete_func("user","username","0xcc");
+//        dbopt.update_table("user","username","username","tester","0xcc");
+//        List<Object> users = dbopt.query_info("user","","anything");
+
+        dbopt.add_schedule(s1);
+        dbopt.add_schedule(s2);
+        dbopt.add_schedule(s3);
+        dbopt.delete_func("schedule","title","Test");
+        dbopt.update_table("schedule","title","title","Tester","0xcc");
+        List<Object> schedules = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
+                new String[]{2016+"",12+"",13+""});
+        for(Object tempsc: schedules){
+            Schedule temp = (Schedule) tempsc;
+            Log.d("[*]Have-User:" , temp.title);
+            Log.d("[*]Have-User:" , temp.content);
+            Log.d("[*]Have-User:" , ""+temp.year);
+        }
+        dbopt.close_db();
     }
 }
