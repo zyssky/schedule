@@ -55,8 +55,8 @@ public class ScheduleHandler {
         scheduleList = new ArrayList<Schedule>();
         selectedList = new ArrayList<Schedule>();
         // TODO: 2016/11/20 load from the database
-        scheduleList = ScheduleHandler.dbopt.query_info("schedule","","anything");
-
+        scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
+                new String[]{year+"",month+"",day+""});
     }
 
     public List<Schedule> getList(){

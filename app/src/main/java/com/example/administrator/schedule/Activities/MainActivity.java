@@ -189,9 +189,9 @@ class dbOptThread extends Thread{
     @Override
     public void run(){
 
-//        Schedule s1 = new Schedule(1,"Test","Content",2016,12,13,13,57,1);
-//        Schedule s2 = new Schedule(1,"Tester","Contentt",2016,12,13,13,57,1);
-//        Schedule s3 = new Schedule(1,"Testerr","Contenttt",2016,12,13,13,57,1);
+        Schedule s1 = new Schedule(1,"Test","Content",2016,12,13,13,57,1);
+        Schedule s2 = new Schedule(1,"Tester","Contentt",2016,12,13,13,57,1);
+        Schedule s3 = new Schedule(1,"Testerr","Contenttt",2016,12,13,13,57,1);
 //      Fake-Register:
         User user    = new User("0xcc","since2016",0,"2016-11-21 08:21:57");
         User user2   = new User("zyssky","123456",0,"2016-11-21 12:22:46");
@@ -200,25 +200,25 @@ class dbOptThread extends Thread{
         dbopt.add_user(user);
         dbopt.add_user(user2);
         dbopt.add_user(user3);
-        dbopt.close_db();
+//        dbopt.close_db();
 //        dbopt.add_user(user4);
 //        dbopt.delete_func("user","username","0xcc");
 //        dbopt.update_table("user","username","username","tester","0xcc");
 //        List<Object> users = dbopt.query_info("user","","anything");
 
-//        dbopt.add_schedule(s1);
-//        dbopt.add_schedule(s2);
-//        dbopt.add_schedule(s3);
-//        dbopt.delete_func("schedule","title","Test");
-//        dbopt.update_table("schedule","title","title","Tester","0xcc");
-//        List<Object> schedules = dbopt.query_info("schedule","","anything");
-//        for(Object tempsc: schedules){
-//            Schedule temp = (Schedule) tempsc;
-//            Log.d("[*]Have-User:" , temp.title);
-//            Log.d("[*]Have-User:" , temp.content);
-//            Log.d("[*]Have-User:" , ""+temp.year);
-//
-//        }
+        dbopt.add_schedule(s1);
+        dbopt.add_schedule(s2);
+        dbopt.add_schedule(s3);
+        dbopt.delete_func("schedule","title","Test");
+        dbopt.update_table("schedule","title","title","Tester","0xcc");
+        List<Object> schedules = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
+                new String[]{2016+"",12+"",13+""});
+        for(Object tempsc: schedules){
+            Schedule temp = (Schedule) tempsc;
+            Log.d("[*]Have-User:" , temp.title);
+            Log.d("[*]Have-User:" , temp.content);
+            Log.d("[*]Have-User:" , ""+temp.year);
+        }
+        dbopt.close_db();
     }
-
 }
