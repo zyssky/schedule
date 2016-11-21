@@ -170,6 +170,9 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
         ScheduleHandler.isMultiSelected = mode;
         adapter = new MyArrayAdapter(adapter);
         setListAdapter(adapter);
+        schedulerhandler.getList();
+        if(!mode)
+            schedulerhandler.cleanSelected();
     }
 
     @Override
@@ -238,10 +241,10 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
-        ScheduleHandler.getInstance(date);
+        schedulerhandler=ScheduleHandler.getInstance(date);
         adapter.notifyDataSetChanged();
-        List<Schedule> l = adapter.getObjects();
-        Log.d(TAG, "onDateSelected: "+l.size());
+//        List<Schedule> l = adapter.getObjects();
+//        Log.d(TAG, "onDateSelected: "+l.size());
     }
 
     @Override
@@ -256,9 +259,4 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
 
     }
 
-
-
-    public void update(){
-
-    }
 }

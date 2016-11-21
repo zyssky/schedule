@@ -1,5 +1,6 @@
 package com.example.administrator.schedule;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.example.administrator.schedule.Models.Schedule;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Administrator on 2016/11/3.
@@ -54,9 +57,12 @@ public class ScheduleHandler {
 
         scheduleList = new ArrayList<Schedule>();
         selectedList = new ArrayList<Schedule>();
+        scheduleList.clear();
+        selectedList.clear();
         // TODO: 2016/11/20 load from the database
         scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
                 new String[]{year+"",month+"",day+""});
+        Log.d(TAG, "ScheduleHandler: check with the schedulelist");
     }
 
     public List<Schedule> getList(){
@@ -69,8 +75,17 @@ public class ScheduleHandler {
     }
 
     public void addSelectedSchedule(int position){
-        if(!selectedList.contains(scheduleList.get(position)))
-        selectedList.add(scheduleList.get(position));
+        if(position<scheduleList.size()) {
+            Schedule schedule = (Schedule) scheduleList.get(position);
+            if (!selectedList.contains(schedule))
+                selectedList.add(schedule);
+            else
+                selectedList.remove(schedule);
+        }
+    }
+
+    public void cleanSelected(){
+        selectedList.clear();
     }
 
 
