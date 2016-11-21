@@ -10,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+
 import com.example.administrator.schedule.Models.Schedule;
+
 
 import java.util.List;
 import java.util.zip.Inflater;
@@ -72,6 +74,7 @@ public class MyArrayAdapter extends BaseAdapter implements OnClickWithUIChangeLi
         TextView name = (TextView) view.findViewById(R.id.schedule_name);
         TextView time = (TextView) view.findViewById(R.id.schedule_time);
 
+
         if(ScheduleHandler.isMultiSelected){
             checkBox.setVisibility(View.VISIBLE);
         }
@@ -81,6 +84,7 @@ public class MyArrayAdapter extends BaseAdapter implements OnClickWithUIChangeLi
         Schedule schedule = objects.get(position);
         name.setText(schedule.title);
         time.setText(Format.formatRemindTitle(schedule));
+
 
         return view;
 
@@ -100,7 +104,10 @@ public class MyArrayAdapter extends BaseAdapter implements OnClickWithUIChangeLi
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+
+//        objects = ScheduleHandler.getInstance().getList();
         objects = ScheduleHandler.getInstance().getList();
+
     }
 
     @Override

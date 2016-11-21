@@ -5,9 +5,119 @@
     tools:context="com.example.administrator.schedule.Fragments.SignInFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="签到界面" />
+        android:orientation="vertical" >
+        <LinearLayout
 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp">
+            <Button
+                android:id="@+id/todayButton"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/buttonshape"
+                android:layout_centerInParent="true"
+                android:text="21"
+                android:textColor="#55cc99"
+                android:textSize="30dp"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/star"/>
+            <TextView
+                android:id="@+id/points_text_view"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="12"
+                android:textSize="25dp"/>
+
+            </LinearLayout>
+                <Button
+                    android:id="@+id/sign_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableRight="@drawable/sign_button"
+                    android:text="@string/sign" />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <Button
+                android:id="@+id/exchange_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/store" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Sunday"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Monday"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Tuesday"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Wednesday"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Thursday"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Friday"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Saturday"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50" >
+
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
 </FrameLayout>

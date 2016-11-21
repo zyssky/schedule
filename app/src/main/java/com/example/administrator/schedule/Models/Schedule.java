@@ -82,6 +82,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 
     }
 
+
     public Schedule(int year, int month, int day , int hour, int minute, int type, String title , String content, int user_id){
 
         this.year = year;
@@ -95,6 +96,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
         this.user_id= user_id;
 
     }
+
 
 
     public Schedule(int sche_id, int user_id, String title, String content, int year, int month,
@@ -136,3 +138,6 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
             return 0;
         }
     }
+
+
+

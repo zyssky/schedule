@@ -24,6 +24,7 @@ public class dbOpt {
     public dbOpt(){
 
         dbOperator = new SQLite(mContext, Settings.db_name,null ,1);
+
         //Really Create Database:
         db = dbOperator.getReadableDatabase();
     }
