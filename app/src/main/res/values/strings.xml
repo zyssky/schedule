@@ -22,4 +22,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="Monday">Mon</string>
+    <string name="Tuesday">Tue</string>
+    <string name="Wednesday">Wed</string>
+    <string name="Thursday">Thu</string>
+    <string name="Friday">Fri</string>
+    <string name="Saturday">Sat</string>
+    <string name="Sunday">Sun</string>
+    <string name="sign">Sign</string>
+    <string name="exchange">Exchange</string>
 </resources>
