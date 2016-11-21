@@ -24,6 +24,7 @@ public class ScheduleHandler {
     private List scheduleList;
     private static ScheduleHandler scheduleHandler = null;
     public static boolean isMultiSelected = false;
+    public static dbOpt dbopt = new dbOpt();
 
     public static ScheduleHandler getInstance(){
         if(scheduleHandler != null)
@@ -54,9 +55,7 @@ public class ScheduleHandler {
         scheduleList = new ArrayList<Schedule>();
         selectedList = new ArrayList<Schedule>();
         // TODO: 2016/11/20 load from the database
-        dbOpt dbopt  = new dbOpt();
-        
-
+        scheduleList = ScheduleHandler.dbopt.query_info("schedule","","anything");
 
     }
 
@@ -78,12 +77,14 @@ public class ScheduleHandler {
     public void addSchedule(Schedule schedule){
         // TODO: 2016/11/20 add schedule into the databases
         scheduleList.add(schedule);
+        ScheduleHandler.dbopt.add_schedule(schedule);
     }
 
 
     public void deleteSchedule(Schedule schedule){
         // TODO: 2016/11/3 delete the item from storage
         scheduleList.remove(schedule);
+        ScheduleHandler.dbopt.delete_func("schedule","title",schedule.title);
     }
 
     public void deleteSchedules(){
@@ -95,10 +96,12 @@ public class ScheduleHandler {
 
     // where is the old one ???
     public void updateSchedule(int position,Schedule schedule){
-        scheduleList.set(position,schedule);
-        // TODO: 2016/11/3 update the item detail to storage 
-    }
 
+        // TODO: 2016/11/3 update the item detail to storage
+        Schedule old_temp = (Schedule) scheduleList.get(position);
+        scheduleList.set(position,schedule);
+        ScheduleHandler.dbopt.update_table("schedule","title","title",old_temp.title,schedule.title);
+    }
 
     public static class Index{
         private int index;
