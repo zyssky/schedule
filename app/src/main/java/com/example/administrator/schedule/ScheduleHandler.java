@@ -9,6 +9,8 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +64,7 @@ public class ScheduleHandler {
         // TODO: 2016/11/20 load from the database
         scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
                 new String[]{year+"",month+"",day+""});
+        sort();
         Log.d(TAG, "ScheduleHandler: check with the schedulelist");
     }
 
@@ -93,6 +96,7 @@ public class ScheduleHandler {
         // TODO: 2016/11/20 add schedule into the databases
         scheduleList.add(schedule);
         ScheduleHandler.dbopt.add_schedule(schedule);
+        sort();
     }
 
 
@@ -116,12 +120,10 @@ public class ScheduleHandler {
         Schedule old_temp = (Schedule) scheduleList.get(position);
         scheduleList.set(position,schedule);
         ScheduleHandler.dbopt.update_table("schedule","title","title",old_temp.title,schedule.title);
+        sort();
     }
 
-    public static class Index{
-        private int index;
-        public Index(int index){
-            this.index = index;
-        }
+    public void sort(){
+        Collections.sort(scheduleList);
     }
 }

@@ -29,9 +29,11 @@ import com.example.administrator.schedule.Fragments.TodayFragment;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
+import com.example.administrator.schedule.Notifications.LongRunningService;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.administrator.schedule.Notifications.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity
         dbOpt dbopt = new dbOpt();
         dbOptThread dbInitializer = new dbOptThread(dbopt);
         dbInitializer.start();
+
+        Intent intent = new Intent(this, LongRunningService.class);
+        intent.putExtra(KEY.NEXT_ALARM,0);
+        startService(intent);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {

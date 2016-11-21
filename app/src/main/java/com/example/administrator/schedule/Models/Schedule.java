@@ -10,7 +10,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
      * Created by Administrator on 2016/11/7.
      */
 
-    public class Schedule implements Parcelable {
+    public class Schedule implements Parcelable,Comparable<Schedule> {
 
 //    private transient CalendarDay calendarDay;
 
@@ -124,5 +124,15 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
             this.hour    = hour;
             this.minute  = minute;
             this.type    = type;
+        }
+
+        @Override
+        public int compareTo(Schedule another) {
+            if(hour*60+minute>another.hour*60+another.minute)
+                return 1;
+            else
+                if(hour*60+minute<another.hour*60+another.minute)
+                return -1;
+            return 0;
         }
     }
