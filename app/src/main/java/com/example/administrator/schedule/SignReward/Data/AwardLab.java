@@ -1,8 +1,10 @@
 package com.example.administrator.schedule.SignReward.Data;
 
-import com.example.administrator.schedule.R;
+import com.example.administrator.schedule.Models.Award;
+import com.example.administrator.schedule.SignReward.DBRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nyq on 2016/11/21.
@@ -14,15 +16,31 @@ public class AwardLab {
 
     private AwardLab() {
         mAwards = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Award award = new Award();
-            award.setDescription("This is a star");
-            award.setPoints(2);
-            award.setSrc(R.drawable.star);
-            award.setAwardID(i);
+        DBRepository dbRepository = DBRepository.getDBRepository();
+        List<Object> awards = dbRepository.querySignAward();
+        if (awards == null) {
+            return;
+        }
+        for (Object object :
+                awards) {
+            Award award = (Award) object;
+            award.setSrc(AwardResource.getAwardResource().getResourceByID(award.getAwardID()));
             mAwards.add(award);
         }
     }
+
+//    private AwardLab() {
+//        mAwards = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            Award award = new Award();
+//            award.setName("star");
+//            award.setDescription("This is a star");
+//            award.setPoint(hana);
+//            award.setSrc(R.drawable.star);
+//            award.setAwardID(i);
+//            mAwards.add(award);
+//        }
+//    }
 
     public static AwardLab getAwardLab() {
         if (sAwardLab == null) {
@@ -32,6 +50,10 @@ public class AwardLab {
     }
     public ArrayList<Award> getAwards() {
         return mAwards;
+    }
+
+    public void setAwards(ArrayList<Award> awards) {
+        mAwards = awards;
     }
 
     public Award getAwardByID(int id) {

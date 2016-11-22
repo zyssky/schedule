@@ -10,19 +10,13 @@ import java.util.Date;
 
 public interface SignInContract {
     interface View {
-        void updateViewAfterSign();
+        void updateViewAfterSign(int point);
         void setPointsView(int points);
         void unableSignButton();
     }
     interface Presenter {
         void signToday();
-        void getPoints();
-        void checkSigned(MyDate date);
-    }
-
-    interface Model {
-        boolean isSigned(MyDate date);
         int getPoints();
-        void sign(MyDate date);
+        void checkSigned(MyDate date);
     }
 }

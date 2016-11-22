@@ -68,7 +68,7 @@ public class SignInFragment extends Fragment implements SignInContract.View{
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param param2 Parameter hana.
      * @return A new instance of fragment SignInFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -203,12 +203,13 @@ public class SignInFragment extends Fragment implements SignInContract.View{
     }
 
     @Override
-    public void updateViewAfterSign() {
+    public void updateViewAfterSign(int points) {
 //        ImageView signStarImageView = (ImageView) mViewPager.findViewById(R.id.monthFragmentLayout).findViewById(R.id.todayView).findViewById(R.id.sign_star);
 //        signStarImageView.setImageResource(R.drawable.star);
         ImageView signStarImageView = (ImageView) getActivity().findViewById(R.id.todayView).findViewById(R.id.starImageView);
         signStarImageView.setVisibility(View.VISIBLE);
         mSignButton.setEnabled(false);
+        mPointsTextView.setText(Integer.toString(points));
     }
 
     @Override

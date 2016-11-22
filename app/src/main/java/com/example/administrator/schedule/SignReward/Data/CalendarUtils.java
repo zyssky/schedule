@@ -71,7 +71,7 @@ public class CalendarUtils {
     }
 
     public static MyDate getTodayDate() {
-        return new MyDate(new Date());
+        return new MyDate(new Date().getTime());
     }
 
     public static String formatDate(MyDate date) {

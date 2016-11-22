@@ -1,6 +1,5 @@
 package com.example.administrator.schedule.SignReward.Store;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.schedule.R;
-import com.example.administrator.schedule.SignReward.Data.Award;
+import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.SignReward.Data.AwardLab;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class AwardListFragment extends ListFragment {
             TextView descriptionTextView = (TextView)convertView.findViewById(R.id.storeItemDesciptionTextView);
             descriptionTextView.setText(award.getDescription());
             TextView pointsTextView = (TextView)convertView.findViewById(R.id.storeItemPointsTextView);
-            pointsTextView.setText(Integer.toString(award.getPoints()));
+            pointsTextView.setText(Integer.toString(award.getPoint()));
             ImageView imageView = (ImageView)convertView.findViewById(R.id.storeItemImageView);
             imageView.setImageResource(award.getSrc());
             return convertView;

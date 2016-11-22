@@ -18,7 +18,7 @@ public interface MonthContract {
         ArrayList<ArrayList<DayInfo>> generateDayInfoMatrix(int datePosition);
     }
 
-    interface Model {
-        ArrayList<ExchangedRecord> getExchangedRecords();
-    }
+//    interface Model {
+//        ArrayList<ExchangedRecord> getExchangedRecords();
+//    }
 }

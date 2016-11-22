@@ -57,11 +57,11 @@ public class dbOpt {
         }
     }
 
-    public void add_signaward(signaward signaward){
+    public void add_signaward(Award award){
 
         try{
-            db.execSQL("INSERT INTO signaward(award_item,point) values(?,?)",
-                    new Object[]{signaward.award_item,signaward.point});
+            db.execSQL("INSERT INTO signaward(award_id,award_name,point,award_description) values(?,?,?,?)",
+                    new Object[]{award.getAwardID(),award.getName(),award.getPoint(),award.getDescription()});
         }catch(Exception e){
             Log.d(Settings.Error_logTag, e.toString());
             Toast.makeText(mContext,"Adding signaward Failed.", Toast.LENGTH_SHORT).show();
@@ -191,11 +191,12 @@ public class dbOpt {
                         cursor = db.rawQuery("SELECT * FROM signaward", null);
                         while (cursor.moveToNext()) {
 
-                            signaward signaward = new signaward();
-                            signaward.award_id = cursor.getInt(0);
-                            signaward.award_item = cursor.getString(1);
-                            signaward.point = cursor.getInt(2);
-                            ret.add(signaward);
+                            Award award = new Award();
+                            award.setAwardID(cursor.getInt(0));
+                            award.setName(cursor.getString(1));
+                            award.setPoint(cursor.getInt(2));
+                            award.setDescription(cursor.getString(3));
+                            ret.add(award);
                         }
                         cursor.close();
                         return ret;
@@ -282,11 +283,12 @@ public class dbOpt {
                         cursor = db.rawQuery("SELECT * FROM signaward" + " WHERE " + query_column + " =?", new String[]{value});
                         while (cursor.moveToNext()) {
 
-                            signaward signaward = new signaward();
-                            signaward.award_id = cursor.getInt(0);
-                            signaward.award_item = cursor.getString(1);
-                            signaward.point = cursor.getInt(2);
-                            ret.add(signaward);
+                            Award award = new Award();
+                            award.setAwardID(cursor.getInt(0));
+                            award.setName(cursor.getString(1));
+                            award.setPoint(cursor.getInt(2));
+                            award.setDescription(cursor.getString(3));
+                            ret.add(award);
                         }
                         cursor.close();
                         return ret;
@@ -360,7 +362,7 @@ public class dbOpt {
                             user.userpass = cursor.getString(2);
                             user.point = cursor.getInt(3);
                             user.first_sign = cursor.getString(4);
-
+                            ret.add(user);
                         }
                         cursor.close();
                         return ret;
@@ -390,11 +392,12 @@ public class dbOpt {
                         cursor = db.rawQuery(Query_SQL, values);
                         while (cursor.moveToNext()) {
 
-                            signaward signaward = new signaward();
-                            signaward.award_id = cursor.getInt(0);
-                            signaward.award_item = cursor.getString(1);
-                            signaward.point = cursor.getInt(2);
-                            ret.add(signaward);
+                            Award award = new Award();
+                            award.setAwardID(cursor.getInt(0));
+                            award.setName(cursor.getString(1));
+                            award.setPoint(cursor.getInt(2));
+                            award.setDescription(cursor.getString(3));
+                            ret.add(award);
                         }
                         cursor.close();
                         return ret;

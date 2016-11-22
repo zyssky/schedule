@@ -36,9 +36,10 @@ public class Settings {
             ");";
 
     public static String  create_signaward = create_head + "signaward("  +
-            "award_id INTEGER PRIMARY KEY AUTOINCREMENT,"  +
-            "award_item TEXT," +
+            "award_id INTEGER PRIMARY KEY,"  +
+            "award_name TEXT," +
             "point INTEGER"    +
+            "award_description TEXT" +
             ");";
 
     public static String  create_exchange  = create_head + "exchange(" +

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.schedule.R;
-import com.example.administrator.schedule.SignReward.Data.Award;
+import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.SignReward.Data.AwardLab;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Created by nyq on 2016/11/21.
  */
 
-public class StoreFragment extends ListFragment {
+public class StoreFragment extends ListFragment implements StoreContract.View{
     private ArrayList<Award> mAwards;
     private StoreContract.Presenter mPresenter;
 
@@ -35,7 +35,7 @@ public class StoreFragment extends ListFragment {
         AwardAdapter awardAdapter = new AwardAdapter(mAwards);
         setListAdapter(awardAdapter);
         setRetainInstance(true);
-        mPresenter = new StorePresenter();
+        mPresenter = new StorePresenter(this);
     }
 
 
@@ -54,7 +54,7 @@ public class StoreFragment extends ListFragment {
             TextView descriptionTextView = (TextView)convertView.findViewById(R.id.storeItemDesciptionTextView);
             descriptionTextView.setText(award.getDescription());
             TextView pointsTextView = (TextView)convertView.findViewById(R.id.storeItemPointsTextView);
-            pointsTextView.setText(Integer.toString(award.getPoints()));
+            pointsTextView.setText(Integer.toString(award.getPoint()));
             ImageView imageView = (ImageView)convertView.findViewById(R.id.storeItemImageView);
             imageView.setImageResource(award.getSrc());
 
@@ -63,14 +63,14 @@ public class StoreFragment extends ListFragment {
                 @Override
                 public void onClick(View v) {
                     int currentPoints = 10;
-                    if (currentPoints < award.getPoints()) {
+                    if (currentPoints < award.getPoint()) {
                         alert("Insufficient Integral", "Sorry, your integral is insufficient!", android.R.drawable.ic_dialog_alert);
                     }
                     else {
-                        currentPoints = currentPoints - award.getPoints();
+                        currentPoints = currentPoints - award.getPoint();
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Tip!")
-                                .setMessage("It will cost you " + Integer.toString(award.getPoints()) + " points.")
+                                .setMessage("It will cost you " + Integer.toString(award.getPoint()) + " points.")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {

@@ -29,7 +29,17 @@ public class ExchangedRecordLab {
         }
         return -1;
     }
-
+    public ExchangedRecord getExchangedRecord(int year, int month, int day) {
+        ExchangedRecord exchangedRecord;
+        for (int i = 0; i < mExchangedRecords.size(); i++) {
+            exchangedRecord = mExchangedRecords.get(i);
+            MyDate date = exchangedRecord.getDate();
+            if (date.getYear() == year && date.getMonth() == month && date.getDay() == day) {
+                return exchangedRecord;
+            }
+        }
+        return null;
+    }
     public ExchangedRecord getExchangedRecord(int position) {
         return mExchangedRecords.get(position);
     }

@@ -1,6 +1,5 @@
 package com.example.administrator.schedule.SignReward.RewardDialog;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import com.example.administrator.schedule.R;
 import com.example.administrator.schedule.SignReward.Data.CalendarUtils;
 import com.example.administrator.schedule.SignReward.Data.ExchangedRecord;
 import com.example.administrator.schedule.SignReward.Data.ExchangedRecordLab;
-import com.example.administrator.schedule.SignReward.Data.Award;
+import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.SignReward.Data.AwardLab;
 
 /**
@@ -45,7 +44,7 @@ public class RewardContentFragment extends Fragment {
         awardImageView.setImageResource(award.getSrc());
 
         TextView pointsTextView = (TextView) rewardContentView.findViewById(R.id.pointsTextView);
-        pointsTextView.setText(Integer.toString(award.getPoints()));
+        pointsTextView.setText(Integer.toString(award.getPoint()));
 
         if (mPosition == 0) {
             ImageView leftArrowImageView = (ImageView) rewardContentView.findViewById(R.id.leftArrowImageView);

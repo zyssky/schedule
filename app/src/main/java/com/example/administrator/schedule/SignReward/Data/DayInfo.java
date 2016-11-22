@@ -9,4 +9,5 @@ public class DayInfo {
     public boolean isToday;
     public boolean isSigned = false;
     public int exchangedPosition = -1;
+    public int awardID;
 }
