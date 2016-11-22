@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.administrator.schedule.Fragments.AboutFragment;
+import com.example.administrator.schedule.Fragments.AssignmentFragment;
 import com.example.administrator.schedule.Fragments.CalendarFragment;
 import com.example.administrator.schedule.Fragments.ClockArrangementFragment;
 import com.example.administrator.schedule.Fragments.SettingFragment;
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.canlendar) {
             fragment = new CalendarFragment();
         } else if (id == R.id.assigment) {
-
+            fragment = new AssignmentFragment();
         } else if (id == R.id.tour) {
 
         }else if (id == R.id.setting) {

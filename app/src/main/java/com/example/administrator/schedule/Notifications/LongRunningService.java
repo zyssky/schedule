@@ -52,7 +52,7 @@ public class LongRunningService extends Service {
         List<Schedule> scheduleList = new ArrayList<Schedule>();
         for(Object object:list){
             Schedule s = (Schedule)object;
-            if(hour*60+minute<=s.hour*60+s.minute)
+            if(hour*60+minute<s.hour*60+s.minute)
             scheduleList.add(s);
         }
 
@@ -89,5 +89,7 @@ public class LongRunningService extends Service {
         manager.cancel(pi);
 
     }
+
+
 }
 
