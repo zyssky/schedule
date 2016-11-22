@@ -76,7 +76,7 @@ public class AssignmentFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_assignment, container, false);
     }
 
-    private ListAdapter adapter;
+    private GridViewAdapter adapter;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -86,6 +86,9 @@ public class AssignmentFragment extends Fragment {
         for(int i =0;i<63;i++)
             list.add("");
         adapter = new GridViewAdapter(getActivity(),R.id.class_detail,list);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        adapter.setInflater(inflater);
+        adapter.loadList();
 
         gridView.setAdapter(adapter);
 
