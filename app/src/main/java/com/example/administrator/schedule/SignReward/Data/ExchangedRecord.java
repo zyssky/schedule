@@ -1,20 +1,19 @@
 package com.example.administrator.schedule.SignReward.Data;
 
-import java.util.Date;
 
 /**
  * Created by nyq on 2016/11/21.
  */
 
 public class ExchangedRecord {
-    private MyDate mDate;
+    private DateWrapper mDate;
     private int mAwardID;
 
-    public MyDate getDate() {
+    public DateWrapper getDateWrapper() {
         return mDate;
     }
 
-    public void setDate(MyDate mDate) {
+    public void setDateWrapper(DateWrapper mDate) {
         this.mDate = mDate;
     }
 

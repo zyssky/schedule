@@ -1,8 +1,9 @@
-package com.example.administrator.schedule.SignReward.Data;
+package com.example.administrator.schedule.SignReward.Utils;
+
+
+import com.example.administrator.schedule.SignReward.Data.DateRange;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by nyq on 2016/11/20.
@@ -48,7 +49,6 @@ public class CalendarUtils {
         return dayNum;
     }
 
-
     public static boolean isLeapYear(int year) {
         return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
     }
@@ -66,21 +66,4 @@ public class CalendarUtils {
         return Integer.toString(year) + "年" + Integer.toString(month) + "月";
     }
 
-    public static String getTodayDateStr() {
-        return formatDate(getTodayDate());
-    }
-
-    public static MyDate getTodayDate() {
-        return new MyDate(new Date().getTime());
-    }
-
-    public static String formatDate(MyDate date) {
-        String pattern = "yyyy-MM-dd";
-        return formatDate(date, pattern);
-    }
-
-    public static String formatDate(MyDate date, String pattern) {
-        Date d = date.getDate();
-        return new SimpleDateFormat(pattern).format(d);
-    }
 }

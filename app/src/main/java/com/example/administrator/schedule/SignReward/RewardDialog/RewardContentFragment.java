@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.schedule.R;
-import com.example.administrator.schedule.SignReward.Data.CalendarUtils;
 import com.example.administrator.schedule.SignReward.Data.ExchangedRecord;
 import com.example.administrator.schedule.SignReward.Data.ExchangedRecordLab;
 import com.example.administrator.schedule.Models.Award;
@@ -35,8 +34,7 @@ public class RewardContentFragment extends Fragment {
         int awardID = exchangedRecord.getAwardID();
         Award award = AwardLab.getAwardLab().getAwardByID(awardID);
 
-
-        String dateStr = CalendarUtils.formatDate(exchangedRecord.getDate());
+        String dateStr = exchangedRecord.getDateWrapper().toDateStr();
         TextView rewardDateTextView = (TextView)rewardContentView.findViewById(R.id.rewardDateTextView);
         rewardDateTextView.setText(dateStr);
 

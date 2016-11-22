@@ -1,16 +1,13 @@
 package com.example.administrator.schedule.SignReward.Month;
 
-import android.util.Log;
-
-import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.exchange;
 import com.example.administrator.schedule.Models.signin;
 import com.example.administrator.schedule.SignReward.DBRepository;
-import com.example.administrator.schedule.SignReward.Data.CalendarUtils;
+import com.example.administrator.schedule.SignReward.Utils.CalendarUtils;
+import com.example.administrator.schedule.SignReward.Data.DateWrapper;
 import com.example.administrator.schedule.SignReward.Data.DayInfo;
 import com.example.administrator.schedule.SignReward.Data.ExchangedRecord;
 import com.example.administrator.schedule.SignReward.Data.ExchangedRecordLab;
-import com.example.administrator.schedule.SignReward.Data.MyDate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -92,7 +89,7 @@ public class MonthPresenter implements MonthContract.Presenter {
     public ArrayList<ExchangedRecord> getExchangedRecords() {
         int userID = 1;
         ArrayList<ExchangedRecord> exchangedRecords = new ArrayList<>();
-        List<Object> exchanges = mDBRepository.queryExchange(userID);
+        List<Object> exchanges = mDBRepository.queryExchange();
         if (exchanges == null) {
             return exchangedRecords;
         }
@@ -101,7 +98,7 @@ public class MonthPresenter implements MonthContract.Presenter {
             public int compare(Object lhs, Object rhs) {
                 String ll = ((exchange)lhs).exchange_date;
                 String lr = ((exchange)rhs).exchange_date;
-                return Long.getLong(ll).compareTo(Long.getLong(lr));
+                return DateWrapper.parseDateStr(ll).compareTo(DateWrapper.parseDateStr(lr));
             }
         });
         for (Object o :
@@ -109,7 +106,7 @@ public class MonthPresenter implements MonthContract.Presenter {
             exchange e = (exchange)o;
             ExchangedRecord exchangedRecord = new ExchangedRecord();
             exchangedRecord.setAwardID(e.award_id);
-            exchangedRecord.setDate(new MyDate(Long.getLong(e.exchange_date)));
+            exchangedRecord.setDateWrapper(DateWrapper.parseDateStr(e.exchange_date));
 
             exchangedRecords.add(exchangedRecord);
         }
@@ -117,8 +114,7 @@ public class MonthPresenter implements MonthContract.Presenter {
     }
 
     private void querySignDays(int year, int month) {
-        int userID = 1;
-        List<Object> signins = mDBRepository.queryYearMonthSignIn(userID, year, month);
+        List<Object> signins = mDBRepository.queryYearMonthSignIn(year, month);
         if (signins == null || signins.size() == 0) {
             mSignDays = null;
             return;
@@ -127,11 +123,7 @@ public class MonthPresenter implements MonthContract.Presenter {
         for (Object object :
                 signins) {
             signin s = (signin) object;
-            String[] dateStrArray = s.sign_date.split("-");
-            if (dateStrArray.length == 3) {
-                int day = Integer.parseInt(dateStrArray[2]);
-                mSignDays.add(day);
-            }
+            mSignDays.add(DateWrapper.parseDateStr(s.sign_date).getDay());
         }
     }
 
@@ -144,7 +136,7 @@ public class MonthPresenter implements MonthContract.Presenter {
 //        for (int i = 0; i < 10; i++) {
 //            ExchangedRecord exchangedRecord = new ExchangedRecord();
 //            MyDate myDate = new MyDate(2016, 11, i+1);
-//            exchangedRecord.setDate(myDate);
+//            exchangedRecord.setDateWrapper(myDate);
 //            exchangedRecords.add(exchangedRecord);
 //        }
 //        return exchangedRecords;

@@ -38,7 +38,7 @@ public class Settings {
     public static String  create_signaward = create_head + "signaward("  +
             "award_id INTEGER PRIMARY KEY,"  +
             "award_name TEXT," +
-            "point INTEGER"    +
+            "point INTEGER,"    +
             "award_description TEXT" +
             ");";
 

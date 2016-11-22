@@ -17,6 +17,8 @@ public class AwardResource {
 
         mResourceNameMap.put("star", R.drawable.star);
         mResourceIDMap.put( 1 , R.drawable.star);
+        mResourceIDMap.put(2, R.drawable.kale);
+        mResourceIDMap.put(3, R.drawable.kazila);
     }
 
     public int getResourceByName(String name) {

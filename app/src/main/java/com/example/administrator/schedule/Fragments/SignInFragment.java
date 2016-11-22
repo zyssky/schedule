@@ -1,5 +1,6 @@
 package com.example.administrator.schedule.Fragments;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,17 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.schedule.R;
-import com.example.administrator.schedule.SignReward.DBRepository;
 import com.example.administrator.schedule.SignReward.Data.DateRange;
-import com.example.administrator.schedule.SignReward.Data.CalendarUtils;
+import com.example.administrator.schedule.SignReward.Utils.CalendarUtils;
 import com.example.administrator.schedule.SignReward.SignIn.SignInContract;
 import com.example.administrator.schedule.SignReward.Month.MonthFragment;
 import com.example.administrator.schedule.SignReward.SignIn.SignInPresenter;
 import com.example.administrator.schedule.SignReward.Store.StoreFragment;
+import com.example.administrator.schedule.SignReward.Utils.ViewGroupUtils;
 
 import java.util.Calendar;
 
@@ -143,6 +145,10 @@ public class SignInFragment extends Fragment implements SignInContract.View{
         exchangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mPresenter.checkTodaySigned() != 1) {
+                    Toast.makeText(getActivity(), "Please sign first!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 StoreFragment storeFragment = new StoreFragment();
 
                 getFragmentManager().beginTransaction()
@@ -153,6 +159,7 @@ public class SignInFragment extends Fragment implements SignInContract.View{
         });
 
         Button todayButton = (Button) signInView.findViewById(R.id.todayButton);
+        todayButton.setText(Integer.toString(currentDay));
         todayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +170,7 @@ public class SignInFragment extends Fragment implements SignInContract.View{
 
         mPresenter.getPoints();
         setCurrentMonth();
-        mPresenter.checkSigned(CalendarUtils.getTodayDate());
+        mPresenter.checkTodaySigned();
         return signInView;
     }
 
@@ -206,8 +213,18 @@ public class SignInFragment extends Fragment implements SignInContract.View{
     public void updateViewAfterSign(int points) {
 //        ImageView signStarImageView = (ImageView) mViewPager.findViewById(R.id.monthFragmentLayout).findViewById(R.id.todayView).findViewById(R.id.sign_star);
 //        signStarImageView.setImageResource(R.drawable.star);
-        ImageView signStarImageView = (ImageView) getActivity().findViewById(R.id.todayView).findViewById(R.id.starImageView);
-        signStarImageView.setVisibility(View.VISIBLE);
+//
+//        ImageView signStarImageView = (ImageView) getActivity().findViewById(R.id.todayView).findViewById(R.id.starImageView);
+//        signStarImageView.setVisibility(View.VISIBLE);
+        LayoutInflater inflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View oldView = getActivity().findViewById(R.id.todayView);
+        View newView = inflater.inflate(R.layout.grid_item_sign, null);
+        TextView dayTextView = (TextView)newView.findViewById(R.id.dayTextView);
+        dayTextView.setTextColor(getResources().getColor(R.color.colorToday));
+        dayTextView.setText(Integer.toString(currentDay));
+        newView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f) );
+
+        ViewGroupUtils.replaceView(oldView, newView);
         mSignButton.setEnabled(false);
         mPointsTextView.setText(Integer.toString(points));
     }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.administrator.schedule.R;
 import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.SignReward.Data.AwardLab;
+import com.example.administrator.schedule.SignReward.Test;
 
 import java.util.ArrayList;
 
@@ -62,7 +63,12 @@ public class StoreFragment extends ListFragment implements StoreContract.View{
             storeItemExchangeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int currentPoints = 10;
+
+                    if(mPresenter.checkExchangedToday()) {
+                        return;
+                    }
+
+                    int currentPoints = mPresenter.getPoint();
                     if (currentPoints < award.getPoint()) {
                         alert("Insufficient Integral", "Sorry, your integral is insufficient!", android.R.drawable.ic_dialog_alert);
                     }
@@ -114,7 +120,12 @@ public class StoreFragment extends ListFragment implements StoreContract.View{
     @Override
     public void onResume() {
         super.onResume();
+//        new Test().addAwards();
         ((AwardAdapter)getListAdapter()).notifyDataSetChanged();
     }
 
+    @Override
+    public void showNoExchangeToady() {
+        alert("Sorry", "Sorry! You have exchanged today. Please wait for tomorrow!", android.R.drawable.btn_star);
+    }
 }

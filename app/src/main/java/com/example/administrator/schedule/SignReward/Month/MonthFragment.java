@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.schedule.R;
+import com.example.administrator.schedule.SignReward.Data.AwardResource;
 import com.example.administrator.schedule.SignReward.Data.DayInfo;
 import com.example.administrator.schedule.SignReward.RewardDialog.RewardDialogFragment;
 
@@ -46,9 +47,9 @@ public class MonthFragment extends Fragment implements MonthContract.View{
             ArrayList<DayInfo> dayInfos_week = dayInfoMatrix.get(i);
             for (int j = 0; j < dayInfos_week.size(); j++) {
                 DayInfo dayInfo = dayInfos_week.get(j);
-                View dayView = inflater.inflate(R.layout.grid_item, null);
-                addDayViewInfo(dayView, dayInfo);
-
+                View dayView = generateView(inflater,dayInfo);
+                dayView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f) );
+//                addDayViewInfo(dayView, dayInfo);
                 weekLayout.addView(dayView);
             }
             ((ViewGroup) monthView).addView(weekLayout);
@@ -57,41 +58,38 @@ public class MonthFragment extends Fragment implements MonthContract.View{
         return monthView;
     }
 
-    private void addDayViewInfo(View dayView, DayInfo dayInfo) {
-
-        if( dayInfo == null) {
-            dayInfo = new DayInfo();
+    private View generateView(LayoutInflater inflater, DayInfo dayInfo) {
+        View dayView;
+        if (dayInfo == null) {
+            dayView = inflater.inflate(R.layout.grid_item, null);
             dayView.setAlpha(0.5f);
+            ((TextView) dayView.findViewById(R.id.dayTextView)).setText("");
+            return dayView;
         }
-        if (dayInfo.exchangedPosition != -1) {
-            setDayViewListener(dayView, dayInfo);
+        else if(!dayInfo.isSigned && dayInfo.exchangedPosition == -1) {
+            dayView = inflater.inflate(R.layout.grid_item, null);
         }
-        dayView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f) );
-        TextView dayTextView = (TextView) dayView.findViewById(R.id.dayTextView);
-        ImageView starImageView = (ImageView) dayView.findViewById(R.id.starImageView);
-        ImageView backGroundImageView = (ImageView) dayView.findViewById(R.id.signBackgroundImageView);
-
-        if (dayInfo.day != 0) {
-            dayTextView.setText(Integer.toString((dayInfo.day)));
+        else if (dayInfo.isSigned && dayInfo.exchangedPosition == -1) {
+            dayView = inflater.inflate(R.layout.grid_item_sign, null);
+        }
+        else if(!dayInfo.isSigned && dayInfo.exchangedPosition != -1) {
+            dayView = inflater.inflate(R.layout.grid_item_award, null);
         }
         else {
-            dayTextView.setText("");
+            dayView = inflater.inflate(R.layout.grid_item_award_sign, null);
         }
-
+        TextView dayTextView = (TextView) dayView.findViewById(R.id.dayTextView);
+        dayTextView.setText(Integer.toString(dayInfo.day));
         if (dayInfo.isToday) {
             dayView.setId(R.id.todayView);
             dayTextView.setTextColor(getResources().getColor(R.color.colorToday));
         }
-
         if (dayInfo.exchangedPosition != -1) {
-            backGroundImageView.setImageResource(R.drawable.item_award_background);
+            setDayViewListener(dayView, dayInfo);
+            ImageView awardImageView = (ImageView)dayView.findViewById(R.id.awardImageView);
+            awardImageView.setImageResource(AwardResource.getAwardResource().getResourceByID(dayInfo.awardID));
         }
-
-        if (!dayInfo.isSigned) {
-            starImageView.setVisibility(View.INVISIBLE);
-        }
-
-        dayView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f) );
+        return dayView;
     }
 
     private void setDayViewListener(View v, final DayInfo dayInfo) {

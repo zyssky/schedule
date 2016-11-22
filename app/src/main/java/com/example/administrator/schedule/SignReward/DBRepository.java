@@ -8,10 +8,8 @@ import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Models.exchange;
 import com.example.administrator.schedule.Models.signin;
-import com.example.administrator.schedule.SignReward.Data.MyDate;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by nyq on 2016/11/21.
@@ -20,6 +18,9 @@ import java.util.Objects;
 public class DBRepository {
     private static DBRepository sDBRepository;
     private dbOpt mdbOpt;
+
+
+    private int mUserID = 1;
 
     private DBRepository() {
         mdbOpt = new dbOpt();
@@ -38,12 +39,14 @@ public class DBRepository {
         return true;
     }
 
-    public boolean updateUserPoint(int point, int id) {
-        mdbOpt.update_table("user", "point", "user_id", Integer.toString(point), Integer.toString(id));
+    public boolean updateUserPoint(int point) {
+        int id = mUserID;
+        mdbOpt.update_table("user", "point", "user_id", Integer.toString(id), Integer.toString(point));
         return true;
     }
 
-    public int querySignIn(int userID, String dateStr) {
+    public int querySignIn(String dateStr) {
+        int userID = mUserID;
         String userIDStr = Integer.toString(userID);
         List<Object> signInRecords = mdbOpt.userdef_query("signin", "select * from signin where user_id = ? and sign_date = ?", new String[] {userIDStr, dateStr});
         if (signInRecords == null) {
@@ -56,7 +59,10 @@ public class DBRepository {
         return 1;
     }
 
-    public int queryPoint(int userID) {
+    public int queryPoint() {
+
+        int userID = mUserID;
+
         String userIDStr = Integer.toString(userID);
         List<Object> users = mdbOpt.query_info("user", "user_id", userIDStr);
         if (users == null || users.size() == 0) {
@@ -66,11 +72,22 @@ public class DBRepository {
         return user.point;
     }
 
-    public List<Object> queryExchange(int userID) {
+    public List<Object> queryExchange() {
+        int userID = mUserID;
         String userIDStr = Integer.toString(userID);
         List<Object> exchanges = mdbOpt.query_info("exchange", "user_id", userIDStr);
         return exchanges;
     }
+
+    public List<Object> queryExchange(String timeStr) {
+        int userID = mUserID;
+        String userIDStr = Integer.toString(userID);
+        timeStr += "%";
+        List<Object> exchanges = mdbOpt.userdef_query("exchange",
+                "select * from exchange where user_id = ? and exchange_date like ?", new String[]{userIDStr, timeStr});
+        return exchanges;
+    }
+
 
     public boolean addSignAward(Award award) {
         mdbOpt.add_signaward(award);
@@ -86,7 +103,8 @@ public class DBRepository {
         return mdbOpt.query_info("signaward", "", "");
     }
 
-    public List<Object> queryYearMonthSignIn(int userID, int year, int month) {
+    public List<Object> queryYearMonthSignIn(int year, int month) {
+        int userID = mUserID;
         String userIDStr = Integer.toString(userID);
         String yearMonthStr = Integer.toString(year) + "-" + Integer.toString(month) + "%";
         List<Object> signins = mdbOpt.userdef_query("signin",

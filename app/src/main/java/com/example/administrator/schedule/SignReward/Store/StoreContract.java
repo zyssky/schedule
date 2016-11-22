@@ -8,9 +8,11 @@ import com.example.administrator.schedule.Models.Award;
 
 public interface StoreContract {
     interface View {
-
+        void showNoExchangeToady();
     }
     interface Presenter {
         boolean dealExchange(Award award);
+        int getPoint();
+        boolean checkExchangedToday();
     }
 }

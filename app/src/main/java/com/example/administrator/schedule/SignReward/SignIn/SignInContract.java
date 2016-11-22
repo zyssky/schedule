@@ -1,8 +1,5 @@
 package com.example.administrator.schedule.SignReward.SignIn;
 
-import com.example.administrator.schedule.SignReward.Data.MyDate;
-
-import java.util.Date;
 
 /**
  * Created by nyq on 2016/11/20.
@@ -17,6 +14,6 @@ public interface SignInContract {
     interface Presenter {
         void signToday();
         int getPoints();
-        void checkSigned(MyDate date);
+        int checkTodaySigned();
     }
 }
