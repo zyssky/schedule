@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -18,7 +21,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.navisdk.adapter.BNOuterLogUtil;
+import com.baidu.navisdk.adapter.BNOuterTTSPlayerCallback;
+import com.baidu.navisdk.adapter.BNaviSettingManager;
+import com.baidu.navisdk.adapter.BaiduNaviManager;
 import com.example.administrator.schedule.Fragments.AboutFragment;
 import com.example.administrator.schedule.Fragments.AssignmentFragment;
 import com.example.administrator.schedule.Fragments.CalendarFragment;
@@ -27,14 +36,18 @@ import com.example.administrator.schedule.Fragments.SettingFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
+import com.example.administrator.schedule.Fragments.TourFragment;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Notifications.LongRunningService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.administrator.schedule.Notifications.*;
+
+import static com.baidu.navisdk.adapter.PackageUtil.getSdcardDir;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
@@ -42,6 +55,12 @@ public class MainActivity extends AppCompatActivity
 
     public Toolbar toolbar;
     Fragment fragment = null;
+
+    public static String TAG = MainActivity.class.getSimpleName();
+
+    private static final String APP_FOLDER_NAME = "BDSDKfolder";
+    private String mSDCardPath = null;
+    private String authinfo = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +79,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(KEY.NEXT_ALARM,0);
         startService(intent);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -86,6 +98,14 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_main, new SignInFragment());
         ft.commit();
+
+
+        BNOuterLogUtil.setLogSwitcher(true);
+
+        // check the baidu sdk
+//        if (initDirs()) {
+//            initNavi();
+//        }
     }
 
     @Override
@@ -140,7 +160,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.assigment) {
             fragment = new AssignmentFragment();
         } else if (id == R.id.tour) {
-
+            fragment = new TourFragment();
         }else if (id == R.id.setting) {
             startActivity(new Intent(this,SettingsActivity.class));
         }else if (id == R.id.about) {
@@ -168,14 +188,125 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(resultCode==RESULT_OK){
-//            if(fragment instanceof CalendarFragment)
-//                ((CalendarFragment)fragment).OnActivityInteraction(data.getExtras());
-//        }
-//    }
+
+    /**
+     * 内部TTS播报状态回传handler
+     */
+    private Handler ttsHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            int type = msg.what;
+            switch (type) {
+                case BaiduNaviManager.TTSPlayMsgType.PLAY_START_MSG: {
+                    showToastMsg("Handler : TTS play start");
+                    break;
+                }
+                case BaiduNaviManager.TTSPlayMsgType.PLAY_END_MSG: {
+                    showToastMsg("Handler : TTS play end");
+                    break;
+                }
+                default :
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 内部TTS播报状态回调接口
+     */
+    private BaiduNaviManager.TTSPlayStateListener ttsPlayStateListener = new BaiduNaviManager.TTSPlayStateListener() {
+
+        @Override
+        public void playEnd() {
+            showToastMsg("TTSPlayStateListener : TTS play end");
+        }
+
+        @Override
+        public void playStart() {
+            showToastMsg("TTSPlayStateListener : TTS play start");
+        }
+    };
+
+    private boolean initDirs() {
+        mSDCardPath = getSdcardDir();
+        if (mSDCardPath == null) {
+            return false;
+        }
+        File f = new File(mSDCardPath, APP_FOLDER_NAME);
+        if (!f.exists()) {
+            try {
+                f.mkdir();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void initNavi() {
+
+//        String root =  "";// getApplicationContext().getExternalFilesDir(null).getPath();
+//        root = Environment.getExternalStorageDirectory().getPath();//.getRootDirectory();//获取手机根目录
+//        //Environment.getExternalStorageDirectory()getExternalStorageDirectory()//获取SD卡根目录
+//
+//        String path= getApplicationContext().getPackageResourcePath();
+
+        BaiduNaviManager.getInstance().init(this, mSDCardPath, APP_FOLDER_NAME, new BaiduNaviManager.NaviInitListener() {
+            @Override
+            public void onAuthResult(int status, String msg) {
+                if (0 == status) {
+                    authinfo = "key校验成功!";
+                } else {
+                    authinfo = "key校验失败, " + msg;
+                }
+                MainActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, authinfo, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            public void initSuccess() {
+                Toast.makeText(MainActivity.this, "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
+                initSetting();
+            }
+
+            public void initStart() {
+                Toast.makeText(MainActivity.this, "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
+            }
+
+            public void initFailed() {
+                Toast.makeText(MainActivity.this, "百度导航引擎初始化失败", Toast.LENGTH_SHORT).show();
+            }
+
+
+        },  null);
+
+    }
+
+    private void initSetting(){
+        // 设置是否双屏显示
+        BNaviSettingManager.setShowTotalRoadConditionBar(BNaviSettingManager.PreViewRoadCondition.ROAD_CONDITION_BAR_SHOW_ON);
+        // 设置导航播报模式
+        BNaviSettingManager.setVoiceMode(BNaviSettingManager.VoiceMode.Veteran);
+        // 是否开启路况
+        BNaviSettingManager.setRealRoadCondition(BNaviSettingManager.RealRoadCondition.NAVI_ITS_ON);
+    }
+
+
+
+    public void showToastMsg(final String msg) {
+        MainActivity.this.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     public void onFragmentInteraction(Bundle bundle) {
