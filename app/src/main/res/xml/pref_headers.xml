@@ -9,12 +9,12 @@
 
     <header
         android:fragment="com.example.administrator.schedule.Activities.SettingsActivity$NotificationPreferenceFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/pref_header_notifications" />
+        android:icon="@drawable/ic_alarm_black_24dp_small"
+        android:title="提醒" />
 
-    <!--<header-->
-        <!--android:fragment="com.example.administrator.schedule.Activities.SettingsActivity$DataSyncPreferenceFragment"-->
-        <!--android:icon="@drawable/ic_sync_black_24dp"-->
-        <!--android:title="@string/pref_header_data_sync" />-->
+    <header
+        android:fragment="com.example.administrator.schedule.Activities.SettingsActivity$DataSyncPreferenceFragment"
+        android:icon="@drawable/ic_assignment_black_24dp_small"
+        android:title="课程表" />
 
 </preference-headers>

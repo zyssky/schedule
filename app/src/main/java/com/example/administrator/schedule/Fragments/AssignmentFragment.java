@@ -1,11 +1,17 @@
 package com.example.administrator.schedule.Fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -67,6 +73,7 @@ public class AssignmentFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+//        setHasOptionsMenu(true);
     }
 
     @Override
@@ -78,20 +85,34 @@ public class AssignmentFragment extends Fragment {
 
     private GridViewAdapter adapter;
 
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.class_menu,menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         GridView gridView = (GridView) getView().findViewById(R.id.class_table);
         List list = new ArrayList<String>();
-        for(int i =0;i<63;i++)
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        int count = Integer.parseInt(sharedPreferences.getString("class_count","9"));
+        for(int i =0;i<7*count;i++)
             list.add("");
         adapter = new GridViewAdapter(getActivity(),R.id.class_detail,list);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         adapter.setInflater(inflater);
-        adapter.loadList();
-
+//        adapter.loadList();
+//        adapter.notifyDataSetChanged();
         gridView.setAdapter(adapter);
 
+        adapter.notifyDataSetChanged();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
