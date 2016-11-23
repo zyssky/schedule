@@ -26,13 +26,16 @@
         <service android:name=".Notifications.LongRunningService"/>
         <receiver android:name=".Notifications.AlarmReceiver"/>
         <activity
+            android:parentActivityName=".Activities.MainActivity"
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
+
             android:name=".Activities.DetailActivity"
             android:label="detail" />
         <activity
             android:name=".Activities.SettingsActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:label="@string/title_activity_settings"></activity>
 
     </application>

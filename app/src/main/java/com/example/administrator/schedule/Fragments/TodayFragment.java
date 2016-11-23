@@ -135,7 +135,7 @@ public class TodayFragment extends ListFragment implements View.OnClickListener 
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Format.formatDay(CalendarDay.today()));
 
-        schedulerhandler = ScheduleHandler.getInstance();
+        schedulerhandler = ScheduleHandler.getInstance(CalendarDay.today());
         adapter = new MyArrayAdapter(getActivity(),R.layout.list_item,schedulerhandler.getList());
         setListAdapter(adapter);
 

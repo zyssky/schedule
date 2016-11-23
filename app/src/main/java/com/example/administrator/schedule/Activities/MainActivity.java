@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.administrator.schedule.Fragments.AboutFragment;
 import com.example.administrator.schedule.Fragments.AssignmentFragment;
@@ -94,7 +98,33 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            exit();
+        }
+    }
+
+    private boolean isExit = false;
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            super.handleMessage(msg);
+            isExit = false;
+        }
+
+    };
+
+    public void exit(){
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            System.exit(0);
         }
     }
 
@@ -114,7 +144,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(this,SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -129,19 +159,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.sign_in) {
             fragment = new SignInFragment();
-
-        } else if (id == R.id.clock) {
-            fragment = new ClockArrangementFragment();
-
         } else if (id == R.id.today) {
             fragment = new TodayFragment();
         } else if (id == R.id.canlendar) {
             fragment = new CalendarFragment();
-        } else if (id == R.id.assigment) {
-            fragment = new AssignmentFragment();
-        } else if (id == R.id.tour) {
-
-        }else if (id == R.id.setting) {
+        } else if (id == R.id.setting) {
             startActivity(new Intent(this,SettingsActivity.class));
         }else if (id == R.id.about) {
             fragment = new AboutFragment();
@@ -160,22 +182,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.login_btn:
-                Intent intent = new Intent(this,LoginActivity.class);
-                startActivity(intent);
-                break;
-        }
+//        switch (v.getId()){
+//            case R.id.login_btn:
+//                Intent intent = new Intent(this,LoginActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(resultCode==RESULT_OK){
-//            if(fragment instanceof CalendarFragment)
-//                ((CalendarFragment)fragment).OnActivityInteraction(data.getExtras());
-//        }
-//    }
 
     @Override
     public void onFragmentInteraction(Bundle bundle) {

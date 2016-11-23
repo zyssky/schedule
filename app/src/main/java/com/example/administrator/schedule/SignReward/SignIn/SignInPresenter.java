@@ -17,7 +17,6 @@ public class SignInPresenter implements SignInContract.Presenter{
     public SignInPresenter(SignInContract.View signInView) {
         mSignView = signInView;
         mDBRepository = DBRepository.getDBRepository();
-        new Test().addAwards();
     }
 
     @Override

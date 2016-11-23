@@ -12,12 +12,37 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <Button
-        android:background="@drawable/login_user"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:paddingTop="16dp"
-        android:id="@+id/login_btn" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:background="@drawable/school_days"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="22dp"
+            android:id="@+id/login_btn" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_margin="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合理安排时间"
+            android:textSize="28dp"
+            android:layout_toRightOf="@id/login_btn"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text"
+            android:text="感谢使用schedule!" />
+
+
+    </RelativeLayout>
 
     <!--<ImageView-->
         <!--android:id="@+id/imageView"-->

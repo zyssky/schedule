@@ -9,7 +9,7 @@
         android:id="@+id/show_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="自主研发！\nBy:钟玉生\n   倪仰秋\n   顾芳铭"
+        android:text="自主研发！\nBy:钟玉生\n     倪仰秋\n     顾芳铭"
         android:textSize="50dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large"/>
 

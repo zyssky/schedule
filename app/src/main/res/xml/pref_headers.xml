@@ -12,9 +12,5 @@
         android:icon="@drawable/ic_alarm_black_24dp_small"
         android:title="提醒" />
 
-    <header
-        android:fragment="com.example.administrator.schedule.Activities.SettingsActivity$DataSyncPreferenceFragment"
-        android:icon="@drawable/ic_assignment_black_24dp_small"
-        android:title="课程表" />
 
 </preference-headers>

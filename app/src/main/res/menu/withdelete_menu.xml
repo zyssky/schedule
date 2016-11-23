@@ -5,10 +5,10 @@
     <item android:title="delete"
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete_black_24dp"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/cancle"
         android:title="cancle"
         android:icon="@drawable/ic_redo_black_24dp"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 </menu>
