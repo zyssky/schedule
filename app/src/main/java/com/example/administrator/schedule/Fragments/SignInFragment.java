@@ -149,7 +149,6 @@ public class SignInFragment extends Fragment implements SignInContract.View{
                     return;
                 }
                 StoreFragment storeFragment = new StoreFragment();
-
                 getFragmentManager().beginTransaction()
                         .replace(((ViewGroup)getView().getParent()).getId(), storeFragment, TAG_FRAGMENT)
                         .addToBackStack(null)

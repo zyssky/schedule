@@ -17,6 +17,7 @@ import com.example.administrator.schedule.R;
 import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.SignReward.Data.AwardLab;
 import com.example.administrator.schedule.SignReward.Test;
+import com.example.administrator.schedule.SignReward.Utils.BackHandlerHelper;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  * Created by nyq on 2016/11/21.
  */
 
-public class StoreFragment extends ListFragment implements StoreContract.View{
+public class StoreFragment extends ListFragment implements StoreContract.View, FragmentBackHandler{
     private ArrayList<Award> mAwards;
     private StoreContract.Presenter mPresenter;
 
@@ -35,7 +36,7 @@ public class StoreFragment extends ListFragment implements StoreContract.View{
         mAwards = AwardLab.getAwardLab().getAwards();
         AwardAdapter awardAdapter = new AwardAdapter(mAwards);
         setListAdapter(awardAdapter);
-        setRetainInstance(true);
+//        setRetainInstance(true);
         mPresenter = new StorePresenter(this);
     }
 
@@ -127,5 +128,10 @@ public class StoreFragment extends ListFragment implements StoreContract.View{
     @Override
     public void showNoExchangeToady() {
         alert("Sorry", "Sorry! You have exchanged today. Please wait for tomorrow!", android.R.drawable.btn_star);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return true;
     }
 }

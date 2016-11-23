@@ -31,6 +31,7 @@ import com.example.administrator.schedule.Fragments.SettingFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
+import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
@@ -39,6 +40,7 @@ import com.example.administrator.schedule.Notifications.LongRunningService;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.administrator.schedule.Notifications.*;
+import com.example.administrator.schedule.SignReward.Utils.BackHandlerHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
@@ -94,12 +96,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        BackHandlerHelper.handleBackPress(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             exit();
         }
+
     }
 
     private boolean isExit = false;
@@ -241,6 +245,21 @@ class dbOptThread extends Thread{
             Log.d("[*]Have-User:" , temp.content);
             Log.d("[*]Have-User:" , ""+temp.year);
         }
+        if(dbopt.query_info("signaward","","").size()==0) {
+            Award award1 = new Award(1, "This is a description", 1, "yinhun");
+            Award award2 = new Award(2, "This is a decription", 2, "yinsan");
+            Award award3 = new Award(3,"just a description", 2, "kela");
+            Award award4 = new Award(4, "just a description", 2, "kazila");
+            Award award5 = new Award(5, "just a description", 2, "yilisaba");
+            dbopt.add_signaward(award1);
+            dbopt.add_signaward(award2);
+            dbopt.add_signaward(award3);
+            dbopt.add_signaward(award4);
+            dbopt.add_signaward(award5);
+        }
+
         dbopt.close_db();
     }
+
+
 }
