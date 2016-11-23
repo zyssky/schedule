@@ -8,6 +8,7 @@ import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Models.exchange;
 import com.example.administrator.schedule.Models.signin;
+import com.example.administrator.schedule.OnScheduleFinishListener;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by nyq on 2016/11/21.
  */
 
-public class DBRepository {
+public class DBRepository implements OnScheduleFinishListener{
     private static DBRepository sDBRepository;
     private dbOpt mdbOpt;
 
@@ -111,5 +112,11 @@ public class DBRepository {
                 "select * from signin where user_id = ? and sign_date like ?",
                 new String[]{userIDStr, yearMonthStr});
         return signins;
+    }
+
+    @Override
+    public void addIntegration() {
+        int point = queryPoint();
+        updateUserPoint(point + 2);
     }
 }

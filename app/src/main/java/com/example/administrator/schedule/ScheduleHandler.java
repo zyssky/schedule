@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter;
 
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.dbOpt;
+import com.example.administrator.schedule.SignReward.DBRepository;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.lang.reflect.Array;
@@ -66,10 +67,10 @@ public class ScheduleHandler {
         scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
                 new String[]{year+"",month+"",day+""});
         sort();
-
+        listener = DBRepository.getDBRepository();
         /*
         // TODO: 2016/11/23 initialize the OnScheduleListener
-        // listener = ?
+         listener = ?
          */
     }
 
