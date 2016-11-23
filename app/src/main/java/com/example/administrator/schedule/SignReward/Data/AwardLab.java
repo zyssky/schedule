@@ -21,10 +21,8 @@ public class AwardLab {
         DBRepository dbRepository = DBRepository.getDBRepository();
         List<Object> awards = dbRepository.querySignAward();
         if (awards == null) {
-            Log.d("awards is null", "awards is null");
             return;
         }
-        Log.d("awards num", Integer.toString(awards.size()));
         for (Object object :
                 awards) {
             Award award = (Award) object;

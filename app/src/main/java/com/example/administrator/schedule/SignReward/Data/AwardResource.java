@@ -16,9 +16,11 @@ public class AwardResource {
         mResourceIDMap = new HashMap<>();
 
         mResourceNameMap.put("star", R.drawable.star);
-        mResourceIDMap.put( 1 , R.drawable.star);
-        mResourceIDMap.put(2, R.drawable.kale);
-        mResourceIDMap.put(3, R.drawable.kazila);
+        mResourceIDMap.put( 1 , R.drawable.yinhun);
+        mResourceIDMap.put(2, R.drawable.yinsan);
+        mResourceIDMap.put(3, R.drawable.kale);
+        mResourceIDMap.put(4, R.drawable.kazila);
+        mResourceIDMap.put(5, R.drawable.yilisabai);
     }
 
     public int getResourceByName(String name) {

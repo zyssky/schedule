@@ -2,6 +2,7 @@ package com.example.administrator.schedule.SignReward.Utils;
 
 
 import com.example.administrator.schedule.SignReward.Data.DateRange;
+import com.example.administrator.schedule.SignReward.Data.DateWrapper;
 
 import java.util.Calendar;
 
@@ -54,13 +55,21 @@ public class CalendarUtils {
     }
 
     public static int isCurrentYearMonth(int year, int month) {
-        month--;
-        Calendar calendar = Calendar.getInstance();
-        if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == month) {
-            return calendar.get(Calendar.DATE);
+        DateWrapper dateWrapper = DateWrapper.getToday();
+        if (dateWrapper.getYear() == year && dateWrapper.getMonth() == month) {
+            return dateWrapper.getDay();
         }
         return -1;
     }
+
+//    public static int isCurrentYearMonth(int year, int month) {
+//        month--;
+//        Calendar calendar = Calendar.getInstance();
+//        if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == month) {
+//            return calendar.get(Calendar.DATE);
+//        }
+//        return -1;
+//    }
 
     public static String formatDate(int year, int month) {
         return Integer.toString(year) + "年" + Integer.toString(month) + "月";

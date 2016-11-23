@@ -7,13 +7,14 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/star"/>
-    <TextView
-        android:id="@+id/storeItemPointsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/storeItemImageView"
-        android:text="2"
-        android:textSize="25dp"/>
+        <TextView
+            android:id="@+id/storeItemPointsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/storeItemImageView"
+            android:layout_alignParentBottom="true"
+            android:text="2"
+            android:textSize="25dp"/>
     <TextView
         android:id="@+id/storeItemDesciptionTextView"
         android:layout_width="match_parent"

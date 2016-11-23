@@ -18,14 +18,13 @@ import android.widget.Toast;
 
 import com.example.administrator.schedule.R;
 import com.example.administrator.schedule.SignReward.Data.DateRange;
+import com.example.administrator.schedule.SignReward.Data.DateWrapper;
 import com.example.administrator.schedule.SignReward.Utils.CalendarUtils;
 import com.example.administrator.schedule.SignReward.SignIn.SignInContract;
 import com.example.administrator.schedule.SignReward.Month.MonthFragment;
 import com.example.administrator.schedule.SignReward.SignIn.SignInPresenter;
 import com.example.administrator.schedule.SignReward.Store.StoreFragment;
 import com.example.administrator.schedule.SignReward.Utils.ViewGroupUtils;
-
-import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,10 +53,10 @@ public class SignInFragment extends Fragment implements SignInContract.View{
     private ViewPager mViewPager;
     private SignInContract.Presenter mPresenter;
 
-    private Calendar mCurrentCalender = Calendar.getInstance();
-    final int currentYear = mCurrentCalender.get(Calendar.YEAR);
-    final int currentMonth = mCurrentCalender.get(Calendar.MONTH) + 1;
-    final int currentDay = mCurrentCalender.get(Calendar.DATE) ;
+    private DateWrapper mDateWrapper = DateWrapper.getToday();
+    final int currentYear = mDateWrapper.getYear();
+    final int currentMonth = mDateWrapper.getMonth();
+    final int currentDay = mDateWrapper.getDay();
     private int mCurrentPosition;
     private DateRange mDateRange = DateRange.getDateRange();
 
