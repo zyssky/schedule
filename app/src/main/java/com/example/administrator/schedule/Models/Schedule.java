@@ -22,6 +22,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
         public int hour = -1;
         public int minute = -1;
         public int type = 1;
+        public int status = 0;
 
         public String title;
         public String content;

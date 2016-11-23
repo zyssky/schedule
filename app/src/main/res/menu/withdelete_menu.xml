@@ -11,4 +11,10 @@
         android:title="cancle"
         android:icon="@drawable/ic_redo_black_24dp"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/finish"
+        android:title="finish"
+        android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+        app:showAsAction="never"/>
 </menu>

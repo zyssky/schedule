@@ -198,6 +198,11 @@ public class TodayFragment extends ListFragment implements View.OnClickListener 
                 if(ScheduleHandler.isMultiSelected == true)
                     changeAdapter(false);
                 break;
+            case R.id.finish:
+                schedulerhandler.finishSchedules();
+                if(ScheduleHandler.isMultiSelected == true)
+                    changeAdapter(false);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

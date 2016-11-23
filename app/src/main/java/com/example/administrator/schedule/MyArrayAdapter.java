@@ -1,6 +1,7 @@
 package com.example.administrator.schedule;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,6 +84,8 @@ public class MyArrayAdapter extends BaseAdapter implements OnClickWithUIChangeLi
         }
         Schedule schedule = objects.get(position);
         name.setText(schedule.title);
+        if(schedule.status > 0)
+            name.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
         time.setText(Format.formatRemindTitle(schedule));
 
 

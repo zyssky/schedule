@@ -30,6 +30,7 @@ public class ScheduleHandler {
     private static ScheduleHandler scheduleHandler = null;
     public static boolean isMultiSelected = false;
     public static dbOpt dbopt = new dbOpt();
+    private OnScheduleFinishListener listener;
 
     public static ScheduleHandler getInstance(){
         if(scheduleHandler != null)
@@ -65,7 +66,10 @@ public class ScheduleHandler {
         scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
                 new String[]{year+"",month+"",day+""});
         sort();
-        Log.d(TAG, "ScheduleHandler: check with the schedulelist");
+
+        /*
+        // TODO: 2016/11/23 initialize the OnScheduleListener
+         */
     }
 
     public List<Schedule> getList(){
@@ -104,6 +108,19 @@ public class ScheduleHandler {
         // TODO: 2016/11/3 delete the item from storage
         scheduleList.remove(schedule);
         ScheduleHandler.dbopt.delete_func("schedule","title",schedule.title);
+    }
+
+    public void finishSchedule(Schedule schedule){
+        schedule.status = 1;
+        if(listener!=null)
+            listener.addIntegration();
+        updateSchedule(scheduleList.indexOf(schedule),schedule);
+    }
+
+    public void finishSchedules(){
+        for (Object index : selectedList) {
+            finishSchedule((Schedule) index);
+        }
     }
 
     public void deleteSchedules(){
