@@ -32,7 +32,6 @@ public class Settings {
             "hour  INTEGER,"    +
             "minute INTEGER,"    +
             "type   INTEGER,"     +
-            "status INTEGER,"      +
             "FOREIGN KEY(user_id) REFERENCES user(user_id)" +
             ");";
 

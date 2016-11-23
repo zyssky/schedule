@@ -46,10 +46,10 @@ public class dbOpt {
     public void add_schedule(Schedule schedule){
 
         try {
-            db.execSQL("INSERT INTO schedule(user_id,title,content,year,month,day,hour,minute,type,status) values(?,?,?,?,?,?,?,?,?,?)",
+            db.execSQL("INSERT INTO schedule(user_id,title,content,year,month,day,hour,minute,type) values(?,?,?,?,?,?,?,?,?)",
                     new Object[]{schedule.user_id, schedule.title, schedule.content,
                             schedule.year, schedule.month, schedule.day,
-                            schedule.hour, schedule.minute, schedule.type , schedule.status});
+                            schedule.hour, schedule.minute, schedule.type});
         }
         catch(Exception e){
             Log.d(Settings.Error_logTag, e.toString());
@@ -181,7 +181,6 @@ public class dbOpt {
                             schedule.hour = cursor.getInt(7);
                             schedule.minute = cursor.getInt(8);
                             schedule.type = cursor.getInt(9);
-                            schedule.status = cursor.getInt(10);
                             ret.add(schedule);
                         }
                         cursor.close();
@@ -274,7 +273,6 @@ public class dbOpt {
                             schedule.hour = cursor.getInt(7);
                             schedule.minute = cursor.getInt(8);
                             schedule.type = cursor.getInt(9);
-                            schedule.status = cursor.getInt(10);
                             ret.add(schedule);
                         }
                         cursor.close();
@@ -313,7 +311,7 @@ public class dbOpt {
 
                     case "signin":
 
-                        cursor = db.rawQuery("SELECT * FROM signin" + " WHERE " + query_column + " =?", new String[]{value});
+                        cursor = db.rawQuery("SELECT * FROM exchange" + " WHERE " + query_column + " =?", new String[]{value});
                         while (cursor.moveToNext()) {
 
                             signin signin = new signin();
@@ -384,7 +382,6 @@ public class dbOpt {
                             schedule.hour = cursor.getInt(7);
                             schedule.minute = cursor.getInt(8);
                             schedule.type = cursor.getInt(9);
-                            schedule.status = cursor.getInt(10);
                             ret.add(schedule);
                         }
                         cursor.close();
