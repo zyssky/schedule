@@ -141,10 +141,10 @@ public class ScheduleHandler {
         scheduleHandler.dbopt.userdef_update("UPDATE schedule SET user_id=? , title=? , " +
                                              "content=? , year=? , month = ? , " +
                                              "day = ? , hour = ? , " +
-                                             "minute = ? , type = ? WHERE title = ? ",
+                                             "minute = ? , type = ? , status = ? WHERE title = ? ",
                 new String[]{schedule.user_id+"",schedule.title,
                         schedule.content,schedule.year+"",schedule.month+"", schedule.day+"",
-                        schedule.hour+"",schedule.minute+"",schedule.type+"",old_temp.title});
+                        schedule.hour+"",schedule.minute+"",schedule.type+"",schedule.status+"",old_temp.title});
         sort();
     }
 

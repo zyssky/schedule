@@ -55,6 +55,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
             dest.writeString(title);
             dest.writeString(content);
             dest.writeInt(user_id);
+            dest.writeInt(status);
         }
 
 
@@ -76,7 +77,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 
         public Schedule(Parcel parcel){
             this(parcel.readInt(),parcel.readInt(),parcel.readInt(),parcel.readInt(),parcel.readInt(),
-                    parcel.readInt(),parcel.readString(),parcel.readString(),parcel.readInt());
+                    parcel.readInt(),parcel.readString(),parcel.readString(),parcel.readInt(),parcel.readInt());
         }
 
     public Schedule(){
@@ -84,7 +85,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
     }
 
 
-    public Schedule(int year, int month, int day , int hour, int minute, int type, String title , String content, int user_id){
+    public Schedule(int year, int month, int day , int hour, int minute, int type, String title , String content, int user_id,int status){
 
         this.year = year;
         this.month= month;
@@ -95,13 +96,12 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
         this.title  = title;
         this.content= content;
         this.user_id= user_id;
-
+        this.status = status;
     }
 
 
-
     public Schedule(int sche_id, int user_id, String title, String content, int year, int month,
-                    int day, int hour, int minute, int type){
+                    int day, int hour, int minute, int type, int status){
 
             this.sche_id = sche_id;
             this.user_id = user_id;
@@ -113,10 +113,11 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
             this.hour    = hour;
             this.minute  = minute;
             this.type    = type;
+            this.status  = status;
     }
 
     public Schedule(int user_id, String title, String content, int year, int month,
-                    int day, int hour, int minute, int type){
+                    int day, int hour, int minute, int type, int status){
 
             this.user_id = user_id;
             this.title   = title;
@@ -127,6 +128,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
             this.hour    = hour;
             this.minute  = minute;
             this.type    = type;
+            this.status  = status;
         }
 
         @Override
