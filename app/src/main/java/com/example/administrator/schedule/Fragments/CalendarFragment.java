@@ -92,6 +92,8 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
         calendarView=(MaterialCalendarView) getView().findViewById(R.id.calendar);
         calendarView.setOnDateChangedListener(this);
         calendarView.setTopbarVisible(false);
+        calendarView.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
+        calendarView.allowClickDaysOutsideCurrentMonth();
         calendarView.setSelectedDate(CalendarDay.today());
         calendarView.setOnMonthChangedListener(this);
         calendarView.setDynamicHeightEnabled(true);

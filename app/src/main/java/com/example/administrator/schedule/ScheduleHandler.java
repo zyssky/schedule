@@ -74,6 +74,10 @@ public class ScheduleHandler {
          */
     }
 
+    public void setOnScheduleFinishListener(OnScheduleFinishListener listener){
+        this.listener = listener;
+    }
+
     public List<Schedule> getList(){
         return scheduleList;
     }
