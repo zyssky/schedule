@@ -215,9 +215,9 @@ class dbOptThread extends Thread{
     @Override
     public void run(){
 
-        Schedule s1 = new Schedule(1,"Test","Content",2016,12,13,13,57,1);
-        Schedule s2 = new Schedule(1,"Tester","Contentt",2016,12,13,13,57,1);
-        Schedule s3 = new Schedule(1,"Testerr","Contenttt",2016,12,13,13,57,1);
+        Schedule s1 = new Schedule(1,"Test","Content",2016,12,13,13,57,1,0);
+        Schedule s2 = new Schedule(1,"Tester","Contentt",2016,12,13,13,57,1,0);
+        Schedule s3 = new Schedule(1,"Testerr","Contenttt",2016,12,13,13,57,1,0);
 //      Fake-Register:
         User user    = new User("0xcc","since2016",0,"2016-11-21 08:21:57");
         User user2   = new User("zyssky","123456",0,"2016-11-21 12:22:46");
