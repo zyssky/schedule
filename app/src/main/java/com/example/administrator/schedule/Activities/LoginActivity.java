@@ -337,15 +337,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // TODO: register the new account here.
             User user = mUserHandler.queryUser(mEmail);
-            if (user != null) {
-                CurrentUser.setUser(user);
-                SignInFragment.ischanged=true;
-            }
-            else {
+            if (user == null) {
                 mUserHandler.insertUser(mEmail, mPassword);
-                CurrentUser.setUser(new User(mEmail, mPassword, 0,""));
-
+                user = mUserHandler.queryUser(mEmail);
             }
+            CurrentUser.setUser(user);
+            SignInFragment.ischanged=true;
             return true;
         }
 
