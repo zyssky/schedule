@@ -66,7 +66,7 @@ public class ScheduleHandler {
         // TODO: 2016/11/20 load from the database
         scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
                 new String[]{year+"",month+"",day+""});
-        sort();
+//        sort();
         listener = DBRepository.getDBRepository();
         /*
         // TODO: 2016/11/23 initialize the OnScheduleListener
@@ -105,8 +105,9 @@ public class ScheduleHandler {
     public void addSchedule(Schedule schedule){
         // TODO: 2016/11/20 add schedule into the databases
         scheduleList.add(schedule);
+//        sort();
         ScheduleHandler.dbopt.add_schedule(schedule);
-        sort();
+//        sort();
     }
 
 
@@ -142,6 +143,7 @@ public class ScheduleHandler {
         // TODO: 2016/11/3 update the item detail to storage
         Schedule old_temp = (Schedule) scheduleList.get(position);
         scheduleList.set(position,schedule);
+//        sort();
         scheduleHandler.dbopt.userdef_update("UPDATE schedule SET user_id=? , title=? , " +
                                              "content=? , year=? , month = ? , " +
                                              "day = ? , hour = ? , " +
