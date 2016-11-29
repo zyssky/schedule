@@ -9,7 +9,7 @@ public interface SignInContract {
     interface View {
         void updateViewAfterSign(int point);
         void setPointsView(int points);
-        void unableSignButton();
+        void updateSignButton(boolean isEnable);
     }
     interface Presenter {
         void signToday();

@@ -21,15 +21,14 @@ public class SignInPresenter implements SignInContract.Presenter{
 
     @Override
     public void signToday() {
-        int userID = 1;
         int currentPoint = getPoints();
         int newPoint =  currentPoint + 2;
 
         DateWrapper dateWrapper = DateWrapper.getToday();
         String dateStr = dateWrapper.toDateStr();
-        signin s = new signin(userID, dateStr);
 
-        boolean bs1 = mDBRepository.addSignIn(s);
+
+        boolean bs1 = mDBRepository.addSignIn(dateStr);
         boolean bs2 = mDBRepository.updateUserPoint(newPoint);
 //        if (bs1 && bs2) {
 //            mSignView.updateViewAfterSign(newPoint);
@@ -50,9 +49,7 @@ public class SignInPresenter implements SignInContract.Presenter{
         DateWrapper dateWrapper = DateWrapper.getToday();
         String dateStr = dateWrapper.toDateStr();
         int isSigned = mDBRepository.querySignIn(dateStr);
-        if (isSigned != 0) {
-            mSignView.unableSignButton();
-        }
+        mSignView.updateSignButton(isSigned == 0);
         return isSigned;
     }
 }

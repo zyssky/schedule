@@ -29,7 +29,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.administrator.schedule.Fragments.SignInFragment;
+import com.example.administrator.schedule.Models.CurrentUser;
+import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.R;
+import com.example.administrator.schedule.UserHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    private UserHandler mUserHandler = new UserHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +203,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+//        return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
@@ -329,6 +336,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             // TODO: register the new account here.
+            User user = mUserHandler.queryUser(mEmail);
+            if (user != null) {
+                CurrentUser.setUser(user);
+                SignInFragment.ischanged=true;
+            }
+            else {
+                mUserHandler.insertUser(mEmail, mPassword);
+                CurrentUser.setUser(new User(mEmail, mPassword, 0,""));
+
+            }
             return true;
         }
 

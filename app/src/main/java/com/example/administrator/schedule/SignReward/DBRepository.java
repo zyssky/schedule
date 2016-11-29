@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.ListFragment;
 
 import com.example.administrator.schedule.Models.Award;
+import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Models.exchange;
@@ -35,34 +36,34 @@ public class DBRepository implements OnScheduleFinishListener{
     }
 
 
-    public boolean addSignIn(signin s) {
+    public boolean addSignIn(String dateStr) {
+        int userID = CurrentUser.getUser().user_id;
+        signin s = new signin(userID, dateStr);
         mdbOpt.add_signin(s);
         return true;
     }
 
     public boolean updateUserPoint(int point) {
-        int id = mUserID;
+        int id = CurrentUser.getUser().user_id;
         mdbOpt.update_table("user", "point", "user_id", Integer.toString(id), Integer.toString(point));
         return true;
     }
 
     public int querySignIn(String dateStr) {
-        int userID = mUserID;
+        int userID = CurrentUser.getUser().user_id;
         String userIDStr = Integer.toString(userID);
         List<Object> signInRecords = mdbOpt.userdef_query("signin", "select * from signin where user_id = ? and sign_date = ?", new String[] {userIDStr, dateStr});
-        if (signInRecords == null) {
-            return -1;
-        }
-        else if (signInRecords.size() == 0) {
-            return 0;
-        }
-
-        return 1;
+//        if (signInRecords == null||signInRecords.size() == 0) {
+//            return 0;
+//        }
+//
+//        return 1;
+        return signInRecords.size();
     }
 
     public int queryPoint() {
 
-        int userID = mUserID;
+        int userID = CurrentUser.getUser().user_id;
 
         String userIDStr = Integer.toString(userID);
         List<Object> users = mdbOpt.query_info("user", "user_id", userIDStr);
@@ -74,14 +75,14 @@ public class DBRepository implements OnScheduleFinishListener{
     }
 
     public List<Object> queryExchange() {
-        int userID = mUserID;
+        int userID = CurrentUser.getUser().user_id;
         String userIDStr = Integer.toString(userID);
         List<Object> exchanges = mdbOpt.query_info("exchange", "user_id", userIDStr);
         return exchanges;
     }
 
     public List<Object> queryExchange(String timeStr) {
-        int userID = mUserID;
+        int userID = CurrentUser.getUser().user_id;
         String userIDStr = Integer.toString(userID);
         timeStr += "%";
         List<Object> exchanges = mdbOpt.userdef_query("exchange",
@@ -105,7 +106,7 @@ public class DBRepository implements OnScheduleFinishListener{
     }
 
     public List<Object> queryYearMonthSignIn(int year, int month) {
-        int userID = mUserID;
+        int userID = CurrentUser.getUser().user_id;
         String userIDStr = Integer.toString(userID);
         String yearMonthStr = Integer.toString(year) + "-" + Integer.toString(month) + "%";
         List<Object> signins = mdbOpt.userdef_query("signin",

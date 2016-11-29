@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,10 @@ import com.example.administrator.schedule.SignReward.Month.MonthFragment;
 import com.example.administrator.schedule.SignReward.SignIn.SignInPresenter;
 import com.example.administrator.schedule.SignReward.Store.StoreFragment;
 import com.example.administrator.schedule.SignReward.Utils.ViewGroupUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +65,9 @@ public class SignInFragment extends Fragment implements SignInContract.View{
     final int currentDay = mDateWrapper.getDay();
     private int mCurrentPosition;
     private DateRange mDateRange = DateRange.getDateRange();
+    private MyPagerAdapter mMyPagerAdapter;
+
+    public static boolean ischanged = false;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -90,7 +99,6 @@ public class SignInFragment extends Fragment implements SignInContract.View{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//        DBRepository.getDBRepository().setContext(getContext());
     }
 
     @Override
@@ -103,19 +111,8 @@ public class SignInFragment extends Fragment implements SignInContract.View{
         mPresenter = new SignInPresenter(this);
 
         mViewPager = (ViewPager)signInView.findViewById(R.id.viewPager);
-        FragmentManager fm = getChildFragmentManager();
-        mViewPager.setAdapter(new FragmentPagerAdapter(fm) {
-            @Override
-            public Fragment getItem(int position) {
-                int datePosition = position + 1;
-                return MonthFragment.newInstance(datePosition);
-            }
-
-            @Override
-            public int getCount() {
-                return mDateRange.getCount();
-            }
-        });
+        mMyPagerAdapter = new MyPagerAdapter(getChildFragmentManager());
+        mViewPager.setAdapter(mMyPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -131,7 +128,6 @@ public class SignInFragment extends Fragment implements SignInContract.View{
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
-        mViewPager.setCurrentItem(0);
         mSignButton = (Button)signInView.findViewById(R.id.sign_button);
         mSignButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,12 +160,22 @@ public class SignInFragment extends Fragment implements SignInContract.View{
                 setCurrentMonth();
             }
         });
-
-
         mPresenter.getPoints();
         setCurrentMonth();
         mPresenter.checkTodaySigned();
         return signInView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mMyPagerAdapter != null && ischanged) {
+            mMyPagerAdapter.clearFragment();
+            mPresenter.getPoints();
+            setCurrentMonth();
+            mPresenter.checkTodaySigned();
+            ischanged = false;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -235,7 +241,54 @@ public class SignInFragment extends Fragment implements SignInContract.View{
 
 
     @Override
-    public void unableSignButton() {
-        mSignButton.setEnabled(false);
+    public void updateSignButton(boolean isEnable) {
+        mSignButton.setEnabled(isEnable);
+    }
+
+
+    public void updateFragment() {
+        mMyPagerAdapter.clearFragment();
+    }
+
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+        private HashMap<Integer, Fragment> mFragmentMap;
+        private FragmentManager mFragmentManager;
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+            this.mFragmentManager = fm;
+            mFragmentMap = new HashMap<>();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (!mFragmentMap.containsKey(position)) {
+                int datePosition = position + 1;
+                mFragmentMap.put(position, MonthFragment.newInstance(datePosition));
+            }
+            return mFragmentMap.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mDateRange.getCount();
+        }
+
+        public void clearFragment() {
+            FragmentTransaction ft = mFragmentManager.beginTransaction();
+            for (Integer key :
+                    mFragmentMap.keySet()) {
+                    ft.remove(mFragmentMap.get(key));
+                    mFragmentMap.put(key, MonthFragment.newInstance(key+1));
+            }
+            ft.commit();
+            mFragmentManager.executePendingTransactions();
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
     }
 }

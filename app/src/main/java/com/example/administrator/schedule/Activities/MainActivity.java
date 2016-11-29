@@ -87,7 +87,13 @@ public class MainActivity extends AppCompatActivity
 
 
         Button login_btn = (Button) navigationView.getHeaderView(0).findViewById(R.id.login_btn);
-        login_btn.setOnClickListener(this);
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplication(), LoginActivity.class));
+
+            }
+        });
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_main, new SignInFragment());
