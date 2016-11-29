@@ -172,6 +172,17 @@ public class TodayFragment extends ListFragment implements View.OnClickListener 
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+//        if (ScheduleHandler.userIsChange){
+//            schedulerhandler = ScheduleHandler.getInstance();
+//            ScheduleHandler.userIsChange = false;
+//        }
+        schedulerhandler = ScheduleHandler.getInstance(CalendarDay.today());
+        adapter.notifyDataSetChanged();
+    }
+
     private void changeAdapter(boolean mode){
         ScheduleHandler.isMultiSelected = mode;
         adapter = new MyArrayAdapter(adapter);

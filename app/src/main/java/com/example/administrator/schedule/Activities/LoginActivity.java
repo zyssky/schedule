@@ -33,6 +33,7 @@ import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.R;
+import com.example.administrator.schedule.ScheduleHandler;
 import com.example.administrator.schedule.UserHandler;
 
 import java.util.ArrayList;
@@ -339,13 +340,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             User user = mUserHandler.queryUser(mEmail);
             if (user != null) {
                 CurrentUser.setUser(user);
-                SignInFragment.ischanged=true;
+
             }
             else {
                 mUserHandler.insertUser(mEmail, mPassword);
                 CurrentUser.setUser(new User(mEmail, mPassword, 0,""));
 
             }
+            SignInFragment.ischanged=true;
+//            ScheduleHandler.userIsChange = true;
+            ScheduleHandler.clearScheduleHandlerInstance();
             return true;
         }
 

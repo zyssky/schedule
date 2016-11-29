@@ -231,6 +231,17 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+//        if (ScheduleHandler.userIsChange){
+//            schedulerhandler = ScheduleHandler.getInstance();
+//            ScheduleHandler.userIsChange = false;
+//        }
+        schedulerhandler = ScheduleHandler.getInstance();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_but:
