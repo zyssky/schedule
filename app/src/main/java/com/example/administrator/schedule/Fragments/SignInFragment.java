@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.administrator.schedule.R;
 import com.example.administrator.schedule.SignReward.Data.DateRange;
 import com.example.administrator.schedule.SignReward.Data.DateWrapper;
+import com.example.administrator.schedule.SignReward.Data.ExchangedRecordLab;
 import com.example.administrator.schedule.SignReward.Utils.CalendarUtils;
 import com.example.administrator.schedule.SignReward.SignIn.SignInContract;
 import com.example.administrator.schedule.SignReward.Month.MonthFragment;
@@ -170,10 +171,12 @@ public class SignInFragment extends Fragment implements SignInContract.View{
     public void onResume() {
         super.onResume();
         if (mMyPagerAdapter != null && ischanged) {
+            ExchangedRecordLab.getExchangedRecordLab().loadExchangedRecords();
             mMyPagerAdapter.clearFragment();
             mPresenter.getPoints();
             setCurrentMonth();
             mPresenter.checkTodaySigned();
+
             ischanged = false;
         }
     }

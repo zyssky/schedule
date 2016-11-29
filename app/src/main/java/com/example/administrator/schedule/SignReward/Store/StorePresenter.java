@@ -2,10 +2,13 @@ package com.example.administrator.schedule.SignReward.Store;
 
 import android.util.Log;
 
+import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.exchange;
 import com.example.administrator.schedule.SignReward.DBRepository;
 import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.SignReward.Data.DateWrapper;
+import com.example.administrator.schedule.SignReward.Data.ExchangedRecord;
+import com.example.administrator.schedule.SignReward.Data.ExchangedRecordLab;
 
 import java.util.List;
 
@@ -23,13 +26,15 @@ public class StorePresenter implements StoreContract.Presenter {
 
     @Override
     public boolean dealExchange(Award award) {
-        int userID = 1;
+        int userID = CurrentUser.getUser().user_id;
         int awardID = award.getAwardID();
-        String dateStr = DateWrapper.getToday().toDateStr();
+        DateWrapper today = DateWrapper.getToday();
+        String dateStr = today.toDateStr();
         exchange e = new exchange(userID, awardID, dateStr);
 
         int newPoint = mDBRepository.queryPoint() - award.getPoint();
         mDBRepository.addExchange(e);
+        ExchangedRecordLab.getExchangedRecordLab().getExchangedRecords().add(new ExchangedRecord(today, awardID));
         mDBRepository.updateUserPoint(newPoint);
         return true;
     }

@@ -9,6 +9,12 @@ public class ExchangedRecord {
     private DateWrapper mDate;
     private int mAwardID;
 
+    public ExchangedRecord(){}
+    public ExchangedRecord(DateWrapper date, int awardID) {
+        mDate = date;
+        mAwardID = awardID;
+    }
+
     public DateWrapper getDateWrapper() {
         return mDate;
     }

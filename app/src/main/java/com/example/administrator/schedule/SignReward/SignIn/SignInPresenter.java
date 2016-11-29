@@ -1,9 +1,17 @@
 package com.example.administrator.schedule.SignReward.SignIn;
 
+import com.example.administrator.schedule.Models.exchange;
 import com.example.administrator.schedule.Models.signin;
 import com.example.administrator.schedule.SignReward.DBRepository;
 import com.example.administrator.schedule.SignReward.Data.DateWrapper;
+import com.example.administrator.schedule.SignReward.Data.ExchangedRecord;
+import com.example.administrator.schedule.SignReward.Data.ExchangedRecordLab;
 import com.example.administrator.schedule.SignReward.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by nyq on 2016/11/20.
@@ -52,4 +60,5 @@ public class SignInPresenter implements SignInContract.Presenter{
         mSignView.updateSignButton(isSigned == 0);
         return isSigned;
     }
+
 }

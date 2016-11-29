@@ -29,7 +29,6 @@ public class MonthPresenter implements MonthContract.Presenter {
     public MonthPresenter(MonthContract.View monthView) {
         mMonthView = monthView;
         mDBRepository = DBRepository.getDBRepository();
-        ExchangedRecordLab.getExchangedRecordLab().setExchangedRecords(getExchangedRecords());
     }
 
 
@@ -84,33 +83,6 @@ public class MonthPresenter implements MonthContract.Presenter {
     public  ArrayList<ArrayList<DayInfo>> generateDayInfoMatrix(int datePosition) {
         int[] date = CalendarUtils.DatePositionToDate(datePosition);
         return generateDayInfoMatrix(date[0], date[1]);
-    }
-
-    public ArrayList<ExchangedRecord> getExchangedRecords() {
-        int userID = 1;
-        ArrayList<ExchangedRecord> exchangedRecords = new ArrayList<>();
-        List<Object> exchanges = mDBRepository.queryExchange();
-        if (exchanges == null) {
-            return exchangedRecords;
-        }
-        Collections.sort(exchanges, new Comparator<Object>() {
-            @Override
-            public int compare(Object lhs, Object rhs) {
-                String ll = ((exchange)lhs).exchange_date;
-                String lr = ((exchange)rhs).exchange_date;
-                return DateWrapper.parseDateStr(ll).compareTo(DateWrapper.parseDateStr(lr));
-            }
-        });
-        for (Object o :
-                exchanges) {
-            exchange e = (exchange)o;
-            ExchangedRecord exchangedRecord = new ExchangedRecord();
-            exchangedRecord.setAwardID(e.award_id);
-            exchangedRecord.setDateWrapper(DateWrapper.parseDateStr(e.exchange_date));
-
-            exchangedRecords.add(exchangedRecord);
-        }
-        return exchangedRecords;
     }
 
     private void querySignDays(int year, int month) {
