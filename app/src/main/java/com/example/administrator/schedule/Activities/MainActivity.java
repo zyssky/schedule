@@ -31,6 +31,7 @@ import com.example.administrator.schedule.Fragments.SettingFragment;
 import com.example.administrator.schedule.Fragments.SignInFragment;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Fragments.TodayFragment;
+import com.example.administrator.schedule.Fragments.TourFragment;
 import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.User;
@@ -38,7 +39,10 @@ import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Notifications.LongRunningService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.example.administrator.schedule.Notifications.*;
 import com.example.administrator.schedule.SignReward.Utils.BackHandlerHelper;
 
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity
 
     public Toolbar toolbar;
     Fragment fragment = null;
+
+    public Map fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,8 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+        fragments = new HashMap<String,Fragment>();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -160,6 +168,40 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private Fragment getFragment(String key){
+        if(fragments.containsKey(key)){
+             return (Fragment)fragments.get(key);
+        }
+        else{
+            if (key.equals(AssignmentFragment.class.getSimpleName()) ){
+                fragments.put(key,new AssignmentFragment());
+            }
+            if (key.equals(CalendarFragment.class.getSimpleName())){
+                fragments.put(key,new CalendarFragment());
+            }
+            if (key.equals(ClockArrangementFragment.class.getSimpleName())){
+                fragments.put(key,new ClockArrangementFragment());
+            }
+            if (key.equals(SettingFragment.class.getSimpleName())){
+                fragments.put(key,new SettingFragment());
+            }
+            if (key.equals(TodayFragment.class.getSimpleName()) ){
+                fragments.put(key,new TodayFragment());
+            }
+            if (key.equals(TourFragment.class.getSimpleName())){
+                fragments.put(key,new TourFragment());
+            }
+            if (key.equals(SignInFragment.class.getSimpleName())){
+                fragments.put(key,new SignInFragment());
+            }
+            if (key.equals(AboutFragment.class.getSimpleName())){
+                fragments.put(key,new AboutFragment());
+            }
+        }
+        return (Fragment) fragments.get(key);
+    }
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -168,15 +210,15 @@ public class MainActivity extends AppCompatActivity
 //        Fragment fragment = null;
 
         if (id == R.id.sign_in) {
-            fragment = new SignInFragment();
+            fragment = getFragment(SignInFragment.class.getSimpleName());
         } else if (id == R.id.today) {
-            fragment = new TodayFragment();
+            fragment = getFragment(TodayFragment.class.getSimpleName());
         } else if (id == R.id.canlendar) {
-            fragment = new CalendarFragment();
+            fragment = getFragment(CalendarFragment.class.getSimpleName());
         } else if (id == R.id.setting) {
             startActivity(new Intent(this,SettingsActivity.class));
         }else if (id == R.id.about) {
-            fragment = new AboutFragment();
+            fragment = getFragment(AboutFragment.class.getSimpleName());
         }
 
         if(fragment!=null){

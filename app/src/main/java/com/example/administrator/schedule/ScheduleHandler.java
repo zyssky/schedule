@@ -3,6 +3,7 @@ package com.example.administrator.schedule;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.SignReward.DBRepository;
@@ -23,6 +24,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class ScheduleHandler {
+//    public static boolean userIsChange = false;
     public List selectedList;
     public int year;
     public int month;
@@ -32,6 +34,10 @@ public class ScheduleHandler {
     public static boolean isMultiSelected = false;
     public static dbOpt dbopt = new dbOpt();
     private OnScheduleFinishListener listener;
+
+    public static void clearScheduleHandlerInstance(){
+        scheduleHandler = null;
+    }
 
     public static ScheduleHandler getInstance(){
         if(scheduleHandler != null)
@@ -64,9 +70,9 @@ public class ScheduleHandler {
         scheduleList.clear();
         selectedList.clear();
         // TODO: 2016/11/20 load from the database
-        scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=?",
-                new String[]{year+"",month+"",day+""});
-        sort();
+        scheduleList = ScheduleHandler.dbopt.userdef_query("schedule","SELECT * FROM schedule WHERE year=? and month=? and day=? and user_id=?",
+                new String[]{year+"",month+"",day+"", CurrentUser.getUser().user_id+""});
+//        sort();
         listener = DBRepository.getDBRepository();
         /*
         // TODO: 2016/11/23 initialize the OnScheduleListener
@@ -105,8 +111,9 @@ public class ScheduleHandler {
     public void addSchedule(Schedule schedule){
         // TODO: 2016/11/20 add schedule into the databases
         scheduleList.add(schedule);
+//        sort();
         ScheduleHandler.dbopt.add_schedule(schedule);
-        sort();
+//        sort();
     }
 
 
@@ -142,6 +149,7 @@ public class ScheduleHandler {
         // TODO: 2016/11/3 update the item detail to storage
         Schedule old_temp = (Schedule) scheduleList.get(position);
         scheduleList.set(position,schedule);
+//        sort();
         scheduleHandler.dbopt.userdef_update("UPDATE schedule SET user_id=? , title=? , " +
                                              "content=? , year=? , month = ? , " +
                                              "day = ? , hour = ? , " +

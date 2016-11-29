@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.example.administrator.schedule.*;
+import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.Schedule;
 
 import java.util.Date;
@@ -87,6 +88,8 @@ public class DetailActivity extends AppCompatActivity {
             int day = ScheduleHandler.getInstance().day;
             schedule = new Schedule(year,month,day);
         }
+
+        schedule.user_id = CurrentUser.getUser().user_id;
 
         pick_time_btn.setText(Format.getTime(schedule));
     }
