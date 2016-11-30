@@ -3,7 +3,7 @@ package com.example.administrator.schedule.Util;
 import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.dbOpt;
-import com.example.administrator.schedule.SignReward.DBRepository;
+import com.example.administrator.schedule.Controller.SignReward.DBRepository;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
