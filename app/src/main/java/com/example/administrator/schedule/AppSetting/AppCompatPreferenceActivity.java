@@ -1,4 +1,4 @@
-package com.example.administrator.schedule.Activities;
+package com.example.administrator.schedule.AppSetting;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

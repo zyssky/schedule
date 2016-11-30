@@ -1,4 +1,4 @@
-package com.example.administrator.schedule.Activities;
+package com.example.administrator.schedule.ScheduleDetail;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -17,12 +17,15 @@ import android.widget.TimePicker;
 import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.Util.Format;
+import com.example.administrator.schedule.Util.KEY;
+import com.example.administrator.schedule.Util.ScheduleHandler;
 
 import java.util.Date;
 
-public class DetailActivity extends AppCompatActivity {
+public class ScheduleDetailActivity extends AppCompatActivity {
 
-    public final String TAG = DetailActivity.class.getSimpleName();
+    public final String TAG = ScheduleDetailActivity.class.getSimpleName();
     private Intent intent;
 
     private EditText schedule_title;

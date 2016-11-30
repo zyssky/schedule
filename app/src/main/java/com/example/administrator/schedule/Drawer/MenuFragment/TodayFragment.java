@@ -1,4 +1,4 @@
-package com.example.administrator.schedule.Fragments;
+package com.example.administrator.schedule.Drawer.MenuFragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,10 +19,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.administrator.schedule.Activities.DetailActivity;
-import com.example.administrator.schedule.KEY;
-import com.example.administrator.schedule.MyAdapter;
+import com.example.administrator.schedule.ScheduleDetail.ScheduleDetailActivity;
+import com.example.administrator.schedule.Util.Format;
+import com.example.administrator.schedule.Util.KEY;
 import com.example.administrator.schedule.*;
+import com.example.administrator.schedule.Util.MyArrayAdapter;
+import com.example.administrator.schedule.Util.ScheduleHandler;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import static android.app.Activity.RESULT_OK;
@@ -89,7 +91,7 @@ public class TodayFragment extends ListFragment implements View.OnClickListener 
             adapter.onClickWithUiChange(v);
         }
         else {
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            Intent intent = new Intent(getActivity(), ScheduleDetailActivity.class);
             intent.putExtra(KEY.SCHEDULE_POSITION, position);
             startActivityForResult(intent, 0);
         }
@@ -159,7 +161,7 @@ public class TodayFragment extends ListFragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_but_today:
-                startActivityForResult(new Intent(getActivity(), DetailActivity.class), 1);
+                startActivityForResult(new Intent(getActivity(), ScheduleDetailActivity.class), 1);
                 break;
         }
     }

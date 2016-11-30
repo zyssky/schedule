@@ -12,11 +12,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.example.administrator.schedule.*;
-
-import static android.content.ContentValues.TAG;
+import com.example.administrator.schedule.Util.KEY;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

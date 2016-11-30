@@ -1,15 +1,12 @@
 package com.example.administrator.schedule.SignReward;
 
-import android.content.Context;
-import android.support.v4.app.ListFragment;
-
 import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Models.exchange;
 import com.example.administrator.schedule.Models.signin;
-import com.example.administrator.schedule.OnScheduleFinishListener;
+import com.example.administrator.schedule.Util.OnScheduleFinishListener;
 
 import java.util.List;
 

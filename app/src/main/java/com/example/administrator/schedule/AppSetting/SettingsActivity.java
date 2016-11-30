@@ -1,4 +1,4 @@
-package com.example.administrator.schedule.Activities;
+package com.example.administrator.schedule.AppSetting;
 
 
 import android.annotation.TargetApi;
@@ -18,9 +18,9 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.administrator.schedule.Drawer.DrawerActivity;
 import com.example.administrator.schedule.R;
 
 import java.util.List;
@@ -192,7 +192,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                startActivity(new Intent(getActivity(), DrawerActivity.class));
                 return true;
             }
             return super.onOptionsItemSelected(item);

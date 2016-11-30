@@ -1,4 +1,4 @@
-package com.example.administrator.schedule;
+package com.example.administrator.schedule.Models;
 
 /**
  * Created by wand on 2016/11/21.

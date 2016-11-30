@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.administrator.schedule.Settings;
-
 import java.util.ArrayList;
 import java.util.List;
 

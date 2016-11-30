@@ -8,14 +8,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.example.administrator.schedule.*;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.dbOpt;
+import com.example.administrator.schedule.Util.KEY;
 
 import java.util.ArrayList;
 import java.util.Calendar;

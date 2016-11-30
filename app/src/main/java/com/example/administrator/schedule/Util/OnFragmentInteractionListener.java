@@ -1,4 +1,4 @@
-package com.example.administrator.schedule;
+package com.example.administrator.schedule.Util;
 
 import android.net.Uri;
 import android.os.Bundle;

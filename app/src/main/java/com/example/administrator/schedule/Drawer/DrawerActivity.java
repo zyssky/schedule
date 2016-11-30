@@ -1,16 +1,14 @@
-package com.example.administrator.schedule.Activities;
+package com.example.administrator.schedule.Drawer;
 
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,32 +21,32 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.administrator.schedule.Fragments.AboutFragment;
-import com.example.administrator.schedule.Fragments.AssignmentFragment;
-import com.example.administrator.schedule.Fragments.CalendarFragment;
-import com.example.administrator.schedule.Fragments.ClockArrangementFragment;
-import com.example.administrator.schedule.Fragments.SettingFragment;
-import com.example.administrator.schedule.Fragments.SignInFragment;
+import com.example.administrator.schedule.Login.LoginActivity;
+import com.example.administrator.schedule.AppSetting.SettingsActivity;
+import com.example.administrator.schedule.Drawer.MenuFragment.AboutFragment;
+import com.example.administrator.schedule.Drawer.MenuFragment.CalendarFragment;
+import com.example.administrator.schedule.Drawer.MenuFragment.SettingFragment;
+import com.example.administrator.schedule.Drawer.MenuFragment.SignInFragment;
 import com.example.administrator.schedule.*;
-import com.example.administrator.schedule.Fragments.TodayFragment;
-import com.example.administrator.schedule.Fragments.TourFragment;
+import com.example.administrator.schedule.Drawer.MenuFragment.TodayFragment;
 import com.example.administrator.schedule.Models.Award;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Notifications.LongRunningService;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.administrator.schedule.Notifications.*;
 import com.example.administrator.schedule.SignReward.Utils.BackHandlerHelper;
+import com.example.administrator.schedule.Util.KEY;
+import com.example.administrator.schedule.Util.OnFragmentInteractionListener;
+import com.example.administrator.schedule.Util.ScheduleHandler;
 
-public class MainActivity extends AppCompatActivity
+public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
-        OnFragmentInteractionListener{
+        OnFragmentInteractionListener {
 
     public Toolbar toolbar;
     Fragment fragment = null;
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Init DB.
@@ -173,24 +171,24 @@ public class MainActivity extends AppCompatActivity
              return (Fragment)fragments.get(key);
         }
         else{
-            if (key.equals(AssignmentFragment.class.getSimpleName()) ){
-                fragments.put(key,new AssignmentFragment());
-            }
+//            if (key.equals(AssignmentFragment.class.getSimpleName()) ){
+//                fragments.put(key,new AssignmentFragment());
+//            }
             if (key.equals(CalendarFragment.class.getSimpleName())){
                 fragments.put(key,new CalendarFragment());
             }
-            if (key.equals(ClockArrangementFragment.class.getSimpleName())){
-                fragments.put(key,new ClockArrangementFragment());
-            }
+//            if (key.equals(ClockArrangementFragment.class.getSimpleName())){
+//                fragments.put(key,new ClockArrangementFragment());
+//            }
             if (key.equals(SettingFragment.class.getSimpleName())){
                 fragments.put(key,new SettingFragment());
             }
             if (key.equals(TodayFragment.class.getSimpleName()) ){
                 fragments.put(key,new TodayFragment());
             }
-            if (key.equals(TourFragment.class.getSimpleName())){
-                fragments.put(key,new TourFragment());
-            }
+//            if (key.equals(TourFragment.class.getSimpleName())){
+//                fragments.put(key,new TourFragment());
+//            }
             if (key.equals(SignInFragment.class.getSimpleName())){
                 fragments.put(key,new SignInFragment());
             }

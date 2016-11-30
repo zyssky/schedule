@@ -1,4 +1,4 @@
-package com.example.administrator.schedule.Activities;
+package com.example.administrator.schedule.Login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -29,12 +29,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.administrator.schedule.Fragments.SignInFragment;
+import com.example.administrator.schedule.Drawer.MenuFragment.SignInFragment;
 import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.User;
 import com.example.administrator.schedule.R;
-import com.example.administrator.schedule.ScheduleHandler;
-import com.example.administrator.schedule.UserHandler;
+import com.example.administrator.schedule.Util.ScheduleHandler;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,28 +1,26 @@
-package com.example.administrator.schedule;
+package com.example.administrator.schedule.Util;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 
 import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.R;
 
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by Administrator on 2016/11/20.
  */
 
-public class MyArrayAdapter extends BaseAdapter implements OnClickWithUIChangeListener{
+public class MyArrayAdapter extends BaseAdapter implements OnClickWithUIChangeListener {
     private LayoutInflater inflater=null;
     private Context context;
     private int resource;

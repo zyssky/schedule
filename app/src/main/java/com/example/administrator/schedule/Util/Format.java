@@ -1,4 +1,4 @@
-package com.example.administrator.schedule;
+package com.example.administrator.schedule.Util;
 
 import com.example.administrator.schedule.Models.Schedule;
 import com.prolificinteractive.materialcalendarview.CalendarDay;

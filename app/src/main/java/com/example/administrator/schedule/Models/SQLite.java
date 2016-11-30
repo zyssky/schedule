@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-import static com.example.administrator.schedule.Settings.create_exchange;
-import static com.example.administrator.schedule.Settings.create_schedule;
-import static com.example.administrator.schedule.Settings.create_signaward;
-import static com.example.administrator.schedule.Settings.create_signin;
-import static com.example.administrator.schedule.Settings.create_user;
+import static com.example.administrator.schedule.Models.Settings.create_exchange;
+import static com.example.administrator.schedule.Models.Settings.create_schedule;
+import static com.example.administrator.schedule.Models.Settings.create_signaward;
+import static com.example.administrator.schedule.Models.Settings.create_signin;
+import static com.example.administrator.schedule.Models.Settings.create_user;
 
 /**
  * Created by wand on 2016/11/20.

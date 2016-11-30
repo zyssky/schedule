@@ -1,7 +1,4 @@
-package com.example.administrator.schedule;
-
-import android.util.Log;
-import android.widget.ArrayAdapter;
+package com.example.administrator.schedule.Util;
 
 import com.example.administrator.schedule.Models.CurrentUser;
 import com.example.administrator.schedule.Models.Schedule;
@@ -9,15 +6,9 @@ import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.SignReward.DBRepository;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Administrator on 2016/11/3.

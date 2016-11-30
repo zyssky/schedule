@@ -1,38 +1,24 @@
-package com.example.administrator.schedule.Fragments;
+package com.example.administrator.schedule.Drawer.MenuFragment;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.GridView;
-import android.widget.ListAdapter;
 
-import com.example.administrator.schedule.GridViewAdapter;
 import com.example.administrator.schedule.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AssignmentFragment.OnFragmentInteractionListener} interface
+ * {@link AboutFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AssignmentFragment#newInstance} factory method to
+ * Use the {@link AboutFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AssignmentFragment extends Fragment {
+public class AboutFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,7 +30,7 @@ public class AssignmentFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AssignmentFragment() {
+    public AboutFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +40,11 @@ public class AssignmentFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AssignmentFragment.
+     * @return A new instance of fragment AboutFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AssignmentFragment newInstance(String param1, String param2) {
-        AssignmentFragment fragment = new AssignmentFragment();
+    public static AboutFragment newInstance(String param1, String param2) {
+        AboutFragment fragment = new AboutFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,46 +59,19 @@ public class AssignmentFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//        setHasOptionsMenu(true);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_assignment, container, false);
-    }
-
-    private GridViewAdapter adapter;
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.class_menu,menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        GridView gridView = (GridView) getView().findViewById(R.id.class_table);
-        List list = new ArrayList<String>();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        int count = Integer.parseInt(sharedPreferences.getString("class_count","9"));
-        for(int i =0;i<7*count;i++)
-            list.add("");
-        adapter = new GridViewAdapter(getActivity(),R.id.class_detail,list);
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        adapter.setInflater(inflater);
-//        adapter.loadList();
-//        adapter.notifyDataSetChanged();
-        gridView.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
+        return inflater.inflate(R.layout.fragment_about, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Drawer.DrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,16 +26,16 @@
         <service android:name=".Notifications.LongRunningService"/>
         <receiver android:name=".Notifications.AlarmReceiver"/>
         <activity
-            android:parentActivityName=".Activities.MainActivity"
-            android:name=".Activities.LoginActivity"
+            android:parentActivityName=".Drawer.DrawerActivity"
+            android:name=".Login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
 
-            android:name=".Activities.DetailActivity"
+            android:name=".ScheduleDetail.ScheduleDetailActivity"
             android:label="detail" />
         <activity
-            android:name=".Activities.SettingsActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".AppSetting.SettingsActivity"
+            android:parentActivityName=".Drawer.DrawerActivity"
             android:label="@string/title_activity_settings"></activity>
 
     </application>

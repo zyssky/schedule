@@ -1,15 +1,11 @@
-package com.example.administrator.schedule.Fragments;
+package com.example.administrator.schedule.Drawer.MenuFragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,18 +17,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import com.example.administrator.schedule.Activities.*;
+import com.example.administrator.schedule.ScheduleDetail.*;
 import com.example.administrator.schedule.*;
 
-import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.Util.Format;
+import com.example.administrator.schedule.Util.KEY;
+import com.example.administrator.schedule.Util.MyArrayAdapter;
+import com.example.administrator.schedule.Util.OnActivityInteractionListener;
+import com.example.administrator.schedule.Util.OnFragmentInteractionListener;
+import com.example.administrator.schedule.Util.ScheduleHandler;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
-
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
@@ -136,7 +134,7 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
             adapter.onClickWithUiChange(v);
         }
         else {
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            Intent intent = new Intent(getActivity(), ScheduleDetailActivity.class);
             intent.putExtra(KEY.SCHEDULE_POSITION, position);
             startActivityForResult(intent, 0);
         }
@@ -245,7 +243,7 @@ public class CalendarFragment extends ListFragment implements OnActivityInteract
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_but:
-                startActivityForResult(new Intent(getActivity(),DetailActivity.class),1);
+                startActivityForResult(new Intent(getActivity(),ScheduleDetailActivity.class),1);
                 break;
             case R.id.today:
                 CalendarDay currentmonth = CalendarDay.today();
