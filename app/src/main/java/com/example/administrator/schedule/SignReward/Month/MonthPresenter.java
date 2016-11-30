@@ -51,15 +51,12 @@ public class MonthPresenter implements MonthContract.Presenter {
         for (int i = 0; i < 6; i++) {
             dayInfoList = new ArrayList<>();
             for (int j = 0; j < 7; j++) {
-                dayInfo = new DayInfo();
+                dayInfo = null;
                 if (i == 0 && lastMonthDay > 0) {
-                    dayInfo = null;
                     lastMonthDay--;
                 }
-                else if (count >= dayNum) {
-                    dayInfo = null;
-                }
-                else {
+                else if (count < dayNum){
+                    dayInfo = new DayInfo();
                     dayInfo.day = ++count;
                     ExchangedRecordLab exchangedRecordLab = ExchangedRecordLab.getExchangedRecordLab();
                     int exchangedPosition = exchangedRecordLab.getExchangedPosition(year, month, dayInfo.day);
@@ -68,9 +65,9 @@ public class MonthPresenter implements MonthContract.Presenter {
                         dayInfo.awardID = exchangedRecordLab.getExchangedRecord(exchangedPosition).getAwardID();
                     }
                     dayInfo.isSigned = isSigned(dayInfo.day);
-                }
-                if (currentDay == count) {
-                    dayInfo.isToday = true;
+                    if (currentDay == count) {
+                        dayInfo.isToday = true;
+                    }
                 }
                 dayInfoList.add(dayInfo);
             }
@@ -103,14 +100,4 @@ public class MonthPresenter implements MonthContract.Presenter {
         return mSignDays != null && mSignDays.contains(day);
     }
 
-//    public ArrayList<ExchangedRecord> getExchangedRecords() {
-//        ArrayList<ExchangedRecord> exchangedRecords = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            ExchangedRecord exchangedRecord = new ExchangedRecord();
-//            MyDate myDate = new MyDate(2016, 11, i+1);
-//            exchangedRecord.setDateWrapper(myDate);
-//            exchangedRecords.add(exchangedRecord);
-//        }
-//        return exchangedRecords;
-//    }
 }
