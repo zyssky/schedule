@@ -45,8 +45,7 @@ import com.example.administrator.schedule.Util.OnFragmentInteractionListener;
 import com.example.administrator.schedule.Util.ScheduleHandler;
 
 public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,
-        OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     public Toolbar toolbar;
     Fragment fragment = null;
@@ -70,15 +69,6 @@ public class DrawerActivity extends AppCompatActivity
         intent.putExtra(KEY.NEXT_ALARM,0);
         startService(intent);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         fragments = new HashMap<String,Fragment>();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -89,8 +79,6 @@ public class DrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
 
         Button login_btn = (Button) navigationView.getHeaderView(0).findViewById(R.id.login_btn);
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -153,12 +141,8 @@ public class DrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivity(new Intent(this,SettingsActivity.class));
         }
@@ -171,24 +155,15 @@ public class DrawerActivity extends AppCompatActivity
              return (Fragment)fragments.get(key);
         }
         else{
-//            if (key.equals(AssignmentFragment.class.getSimpleName()) ){
-//                fragments.put(key,new AssignmentFragment());
-//            }
             if (key.equals(CalendarFragment.class.getSimpleName())){
                 fragments.put(key,new CalendarFragment());
             }
-//            if (key.equals(ClockArrangementFragment.class.getSimpleName())){
-//                fragments.put(key,new ClockArrangementFragment());
-//            }
             if (key.equals(SettingFragment.class.getSimpleName())){
                 fragments.put(key,new SettingFragment());
             }
             if (key.equals(TodayFragment.class.getSimpleName()) ){
                 fragments.put(key,new TodayFragment());
             }
-//            if (key.equals(TourFragment.class.getSimpleName())){
-//                fragments.put(key,new TourFragment());
-//            }
             if (key.equals(SignInFragment.class.getSimpleName())){
                 fragments.put(key,new SignInFragment());
             }
@@ -230,22 +205,6 @@ public class DrawerActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.login_btn:
-//                Intent intent = new Intent(this,LoginActivity.class);
-//                startActivity(intent);
-//                break;
-//        }
-    }
-
-
-    @Override
-    public void onFragmentInteraction(Bundle bundle) {
-
-    }
-
 }
 
 
@@ -272,11 +231,6 @@ class dbOptThread extends Thread{
         dbopt.add_user(user);
         dbopt.add_user(user2);
         dbopt.add_user(user3);
-//        dbopt.close_db();
-//        dbopt.add_user(user4);
-//        dbopt.delete_func("user","username","0xcc");
-//        dbopt.update_table("user","username","username","tester","0xcc");
-//        List<Object> users = dbopt.query_info("user","","anything");
 
         dbopt.add_schedule(s1);
         dbopt.add_schedule(s2);

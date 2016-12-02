@@ -1,7 +1,10 @@
 package com.example.administrator.schedule.Util;
 
+import com.example.administrator.schedule.Models.Day;
 import com.example.administrator.schedule.Models.Schedule;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import java.util.Date;
 
 /**
  * Created by Administrator on 2016/11/1.
@@ -54,9 +57,24 @@ public class Format {
         return sb.toString();
     }
 
+    public static String getTime(Day day){
+        StringBuilder sb = new StringBuilder();
+        sb.append(day.month);
+        sb.append("月");
+        sb.append(day.day);
+        sb.append("日");
+        if(day.hour>0){
+            sb.append(",");
+            sb.append(day.hour);
+            sb.append(":");
+            sb.append(day.minute);
+        }
+        return sb.toString();
+    }
+
     public static String formatDay(int month,int day){
         StringBuilder sb = new StringBuilder();
-        sb.append(month+1);
+        sb.append(month);
         sb.append("月");
         sb.append(day);
         sb.append("日");

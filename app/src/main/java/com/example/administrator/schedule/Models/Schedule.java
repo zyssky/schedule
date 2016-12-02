@@ -24,8 +24,8 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
         public int type = 1;
         public int status = 0;
 
-        public String title;
-        public String content;
+        public String title = "";
+        public String content = "";
 
         public static final Creator<Schedule> CREATOR = new Creator<Schedule>() {
             @Override
@@ -67,12 +67,23 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
             this.title = title;
             this.content  = content;
             this.type = type;
+            this.user_id = CurrentUser.getUser().user_id;
         }
 
         public Schedule(int year,int month,int day){
             this.year = year;
             this.month = month;
             this.day = day;
+            this.user_id = CurrentUser.getUser().user_id;
+        }
+
+        public Schedule(Day day){
+            this.year = day.year;
+            this.month = day.month;
+            this.minute = day.minute;
+            this.hour = day.hour;
+            this.day = day.day;
+            this.user_id = CurrentUser.getUser().user_id;
         }
 
         public Schedule(Parcel parcel){

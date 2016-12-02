@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.administrator.schedule.Controller.Drawer.MenuFragment.CalendarView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +18,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@android:id/list"
+            android:id="@+id/calendar_list"
             android:layout_below="@id/calendar"></ListView>
 
         <Button
@@ -45,4 +45,4 @@
 
     </RelativeLayout>
 
-</FrameLayout>
+</com.example.administrator.schedule.Controller.Drawer.MenuFragment.CalendarView>

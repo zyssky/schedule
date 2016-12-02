@@ -104,10 +104,9 @@ public class MyArrayAdapter extends BaseAdapter implements OnClickWithUIChangeLi
 
     @Override
     public void notifyDataSetChanged() {
+        objects = ScheduleHandler.getInstance().getList();
         super.notifyDataSetChanged();
 
-//        objects = ScheduleHandler.getInstance().getList();
-        objects = ScheduleHandler.getInstance().getList();
 
     }
 

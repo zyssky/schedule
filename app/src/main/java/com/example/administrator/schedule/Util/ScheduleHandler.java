@@ -1,6 +1,7 @@
 package com.example.administrator.schedule.Util;
 
 import com.example.administrator.schedule.Models.CurrentUser;
+import com.example.administrator.schedule.Models.Day;
 import com.example.administrator.schedule.Models.Schedule;
 import com.example.administrator.schedule.Models.dbOpt;
 import com.example.administrator.schedule.Controller.SignReward.DBRepository;
@@ -47,9 +48,16 @@ public class ScheduleHandler {
         return scheduleHandler;
     }
 
-    private ScheduleHandler(CalendarDay selectedDay){
-        this(selectedDay.getYear(),selectedDay.getMonth(),selectedDay.getDay());
+    public static ScheduleHandler getInstance(Day day){
+        return getInstance(day.year,day.month,day.day);
     }
+
+    private ScheduleHandler(CalendarDay selectedDay){
+        this(selectedDay.getYear(),selectedDay.getMonth()+1,selectedDay.getDay());
+    }
+
+
+
 
     private ScheduleHandler(int year,int month,int day){
         this.year = year;
@@ -65,15 +73,8 @@ public class ScheduleHandler {
                 new String[]{year+"",month+"",day+"", CurrentUser.getUser().user_id+""});
 //        sort();
         listener = DBRepository.getDBRepository();
-        /*
-        // TODO: 2016/11/23 initialize the OnScheduleListener
-         listener = ?
-         */
     }
 
-    public void setOnScheduleFinishListener(OnScheduleFinishListener listener){
-        this.listener = listener;
-    }
 
     public List<Schedule> getList(){
         return scheduleList;
@@ -102,9 +103,9 @@ public class ScheduleHandler {
     public void addSchedule(Schedule schedule){
         // TODO: 2016/11/20 add schedule into the databases
         scheduleList.add(schedule);
-//        sort();
         ScheduleHandler.dbopt.add_schedule(schedule);
-//        sort();
+        sort();
+
     }
 
 
@@ -112,6 +113,7 @@ public class ScheduleHandler {
         // TODO: 2016/11/3 delete the item from storage
         scheduleList.remove(schedule);
         ScheduleHandler.dbopt.delete_func("schedule","title",schedule.title);
+
     }
 
     public void finishSchedule(Schedule schedule){
@@ -149,6 +151,7 @@ public class ScheduleHandler {
                         schedule.content,schedule.year+"",schedule.month+"", schedule.day+"",
                         schedule.hour+"",schedule.minute+"",schedule.type+"",schedule.status+"",old_temp.title});
         sort();
+
     }
 
     public void sort(){
