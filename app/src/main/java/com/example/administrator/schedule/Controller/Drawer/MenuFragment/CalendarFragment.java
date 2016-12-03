@@ -44,7 +44,7 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
         calendarView = (CalendarView) getView();
         calendarView.init();
         calendarController = new CalendarController(calendarView,this);
-        
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Format.formatDateTitle(CalendarDay.today()));
 
     }
