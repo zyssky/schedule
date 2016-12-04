@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.administrator.schedule.R;
 import com.example.administrator.schedule.Controller.SignReward.Data.ExchangedRecord;
 import com.example.administrator.schedule.Controller.SignReward.Data.ExchangedRecordLab;
-import com.example.administrator.schedule.Models.Award;
+import com.example.administrator.schedule.Models.SignReward.Award;
 import com.example.administrator.schedule.Controller.SignReward.Data.AwardLab;
 
 /**

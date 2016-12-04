@@ -14,9 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.schedule.R;
-import com.example.administrator.schedule.Models.Award;
+import com.example.administrator.schedule.Models.SignReward.Award;
 import com.example.administrator.schedule.Controller.SignReward.Data.AwardLab;
-import com.example.administrator.schedule.Controller.SignReward.Test;
 
 import java.util.ArrayList;
 

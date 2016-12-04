@@ -1,9 +1,9 @@
 package com.example.administrator.schedule.Controller.SignReward.Store;
 
-import com.example.administrator.schedule.Models.CurrentUser;
-import com.example.administrator.schedule.Models.exchange;
+import com.example.administrator.schedule.Models.Database.CurrentUser;
+import com.example.administrator.schedule.Models.Database.exchange;
 import com.example.administrator.schedule.Controller.SignReward.DBRepository;
-import com.example.administrator.schedule.Models.Award;
+import com.example.administrator.schedule.Models.SignReward.Award;
 import com.example.administrator.schedule.Controller.SignReward.Data.DateWrapper;
 import com.example.administrator.schedule.Controller.SignReward.Data.ExchangedRecord;
 import com.example.administrator.schedule.Controller.SignReward.Data.ExchangedRecordLab;

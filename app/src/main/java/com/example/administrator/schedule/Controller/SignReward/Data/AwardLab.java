@@ -1,6 +1,6 @@
 package com.example.administrator.schedule.Controller.SignReward.Data;
 
-import com.example.administrator.schedule.Models.Award;
+import com.example.administrator.schedule.Models.SignReward.Award;
 import com.example.administrator.schedule.Controller.SignReward.DBRepository;
 
 import java.util.ArrayList;

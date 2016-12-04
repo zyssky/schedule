@@ -1,6 +1,6 @@
 package com.example.administrator.schedule.Controller.SignReward.Month;
 
-import com.example.administrator.schedule.Models.signin;
+import com.example.administrator.schedule.Models.SignReward.signin;
 import com.example.administrator.schedule.Controller.SignReward.DBRepository;
 import com.example.administrator.schedule.Controller.SignReward.Utils.CalendarUtils;
 import com.example.administrator.schedule.Controller.SignReward.Data.DateWrapper;

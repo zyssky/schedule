@@ -10,7 +10,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 
-import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.Models.Schedule.Schedule;
+import com.example.administrator.schedule.Models.Schedule.ScheduleHandler;
 import com.example.administrator.schedule.R;
 
 

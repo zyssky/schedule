@@ -1,11 +1,11 @@
 package com.example.administrator.schedule.Controller.SignReward;
 
-import com.example.administrator.schedule.Models.Award;
-import com.example.administrator.schedule.Models.CurrentUser;
-import com.example.administrator.schedule.Models.User;
-import com.example.administrator.schedule.Models.dbOpt;
-import com.example.administrator.schedule.Models.exchange;
-import com.example.administrator.schedule.Models.signin;
+import com.example.administrator.schedule.Models.SignReward.Award;
+import com.example.administrator.schedule.Models.Database.CurrentUser;
+import com.example.administrator.schedule.Models.Database.User;
+import com.example.administrator.schedule.Models.Database.dbOpt;
+import com.example.administrator.schedule.Models.Database.exchange;
+import com.example.administrator.schedule.Models.SignReward.signin;
 import com.example.administrator.schedule.Util.OnScheduleFinishListener;
 
 import java.util.List;

@@ -2,15 +2,14 @@ package com.example.administrator.schedule.Controller.ScheduleDetail;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TimePicker;
 
-import com.example.administrator.schedule.Models.Schedule;
-import com.example.administrator.schedule.Models.ScheduleInsatace;
+import com.example.administrator.schedule.Models.Schedule.ScheduleInsatace;
 import com.example.administrator.schedule.R;
 import com.example.administrator.schedule.Util.Format;
+import com.example.administrator.schedule.View.ScheduleDetailView;
 
 import java.util.Date;
 

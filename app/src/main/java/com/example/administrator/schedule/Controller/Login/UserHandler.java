@@ -1,7 +1,7 @@
 package com.example.administrator.schedule.Controller.Login;
 
-import com.example.administrator.schedule.Models.User;
-import com.example.administrator.schedule.Models.dbOpt;
+import com.example.administrator.schedule.Models.Database.User;
+import com.example.administrator.schedule.Models.Database.dbOpt;
 
 import java.util.List;
 

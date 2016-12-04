@@ -1,8 +1,8 @@
-<com.example.administrator.schedule.Controller.Drawer.MenuFragment.CalendarView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.administrator.schedule.View.CalendarView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.Drawer.MenuFragment.CalendarFragment">
+    tools:context=".Activity.Drawer.MenuFragment.CalendarFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -45,4 +45,4 @@
 
     </RelativeLayout>
 
-</com.example.administrator.schedule.Controller.Drawer.MenuFragment.CalendarView>
+</com.example.administrator.schedule.View.CalendarView>

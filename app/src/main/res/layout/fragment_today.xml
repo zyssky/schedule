@@ -1,8 +1,8 @@
-<com.example.administrator.schedule.Controller.Drawer.MenuFragment.TodayView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.administrator.schedule.View.TodayView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.Drawer.MenuFragment.TodayFragment">
+    tools:context=".Activity.Drawer.MenuFragment.TodayFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -24,5 +24,5 @@
             android:background="@drawable/add_icon"/>
     </RelativeLayout>
 
-</com.example.administrator.schedule.Controller.Drawer.MenuFragment.TodayView>
+</com.example.administrator.schedule.View.TodayView>
 

@@ -2,7 +2,7 @@ package com.example.administrator.schedule.Controller.SignReward;
 
 import android.util.Log;
 
-import com.example.administrator.schedule.Models.Award;
+import com.example.administrator.schedule.Models.SignReward.Award;
 
 /**
  * Created by nyq on 2016/11/22.

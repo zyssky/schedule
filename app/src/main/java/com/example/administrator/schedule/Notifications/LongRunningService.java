@@ -12,8 +12,8 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.example.administrator.schedule.Models.Schedule;
-import com.example.administrator.schedule.Models.dbOpt;
+import com.example.administrator.schedule.Models.Schedule.Schedule;
+import com.example.administrator.schedule.Models.Database.dbOpt;
 import com.example.administrator.schedule.Util.KEY;
 
 import java.util.ArrayList;

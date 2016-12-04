@@ -1,10 +1,7 @@
 package com.example.administrator.schedule.Util;
 
-import com.example.administrator.schedule.Models.Day;
-import com.example.administrator.schedule.Models.Schedule;
+import com.example.administrator.schedule.Models.Schedule.Schedule;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-
-import java.util.Date;
 
 /**
  * Created by Administrator on 2016/11/1.
