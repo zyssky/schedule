@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.administrator.schedule.View.AssignmentView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.Drawer.MenuFragment.AssignmentFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:id="@+id/class_table_title">
+
+            <TextView
+                android:layout_width="23pt"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:textColor="@color/month_fragment_background_color"
+                android:text="周一"/>
+
+            <TextView
+                android:layout_width="23pt"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:textColor="@color/month_fragment_background_color"
+                android:text="周二"/>
+
+            <TextView
+                android:layout_width="23pt"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:textColor="@color/month_fragment_background_color"
+                android:text="周三"/>
+
+            <TextView
+                android:layout_width="23pt"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:textColor="@color/month_fragment_background_color"
+                android:text="周四"/>
+
+            <TextView
+                android:layout_width="23pt"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:textColor="@color/month_fragment_background_color"
+                android:text="周五"/>
+
+            <TextView
+                android:layout_width="23pt"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:textColor="@color/month_fragment_background_color"
+                android:text="周六"/>
+
+            <TextView
+                android:layout_width="23pt"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:textColor="@color/month_fragment_background_color"
+                android:text="周日"/>
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/class_table"
+            android:layout_below="@id/class_table_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:verticalSpacing="1pt"
+            android:horizontalSpacing="1pt"
+            android:gravity="center"
+            android:numColumns="7"/>
+
+    </RelativeLayout>
+
+</com.example.administrator.schedule.View.AssignmentView>

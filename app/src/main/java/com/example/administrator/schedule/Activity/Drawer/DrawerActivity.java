@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.administrator.schedule.Activity.Drawer.MenuFragment.AssignmentFragment;
+import com.example.administrator.schedule.Activity.Drawer.MenuFragment.TourFragment;
 import com.example.administrator.schedule.Activity.Login.LoginActivity;
 import com.example.administrator.schedule.Activity.AppSetting.SettingsActivity;
 import com.example.administrator.schedule.Activity.Drawer.MenuFragment.AboutFragment;
@@ -131,6 +133,10 @@ public class DrawerActivity extends AppCompatActivity
         }
     }
 
+    public void showMessage(String message){
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -169,6 +175,12 @@ public class DrawerActivity extends AppCompatActivity
             if (key.equals(AboutFragment.class.getSimpleName())){
                 fragments.put(key,new AboutFragment());
             }
+            if (key.equals(TourFragment.class.getSimpleName())){
+                fragments.put(key,new TourFragment());
+            }
+            if (key.equals(AssignmentFragment.class.getSimpleName())){
+                fragments.put(key,new AssignmentFragment());
+            }
         }
         return (Fragment) fragments.get(key);
     }
@@ -191,6 +203,10 @@ public class DrawerActivity extends AppCompatActivity
             startActivity(new Intent(this,SettingsActivity.class));
         }else if (id == R.id.about) {
             fragment = getFragment(AboutFragment.class.getSimpleName());
+        } else if (id == R.id.tour) {
+            fragment = getFragment(TourFragment.class.getSimpleName());
+        }else if (id == R.id.assigment) {
+            fragment = getFragment(AssignmentFragment.class.getSimpleName());
         }
 
         if(fragment!=null){
@@ -240,9 +256,9 @@ class dbOptThread extends Thread{
                 new String[]{2016+"",12+"",13+""});
         for(Object tempsc: schedules){
             Schedule temp = (Schedule) tempsc;
-            Log.d("[*]Have-User:" , temp.title);
-            Log.d("[*]Have-User:" , temp.content);
-            Log.d("[*]Have-User:" , ""+temp.year);
+//            Log.d("[*]Have-User:" , temp.title);
+//            Log.d("[*]Have-User:" , temp.content);
+//            Log.d("[*]Have-User:" , ""+temp.year);
         }
         if(dbopt.query_info("signaward","","").size()==0) {
             Award award1 = new Award(1, "This is a description", 1, "yinhun");

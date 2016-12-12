@@ -1,0 +1,51 @@
+<com.example.administrator.schedule.View.TourView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Drawer.MenuFragment.TourFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_places"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:id="@+id/source"
+                android:hint="出发地"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:id="@+id/dest"
+                android:hint="目的地"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search"
+            android:layout_below="@id/input_places"
+            android:text="search"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/route_list"
+            android:layout_below="@id/search"></ListView>
+
+
+    </RelativeLayout>
+
+</com.example.administrator.schedule.View.TourView>

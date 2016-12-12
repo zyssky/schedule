@@ -9,8 +9,12 @@
 
     <header
         android:fragment="com.example.administrator.schedule.Activity.AppSetting.SettingsActivity$NotificationPreferenceFragment"
-        android:icon="@drawable/ic_alarm_black_24dp_small"
+        android:icon="@drawable/ic_alarm_black_24dp_small2"
         android:title="提醒" />
+    <header
+        android:fragment="com.example.administrator.schedule.Activity.AppSetting.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/ic_directions_bus_black_24dp_small"
+        android:title="出行"/>
 
 
 </preference-headers>
